@@ -46,6 +46,57 @@
                             <label for="dataAbertura" class="form-label">Data de Abertura</label>
                             <input type="date" class="form-control" id="dataAbertura">
                         </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="inscricaoEstadual" class="form-label">Inscrição Estadual</label>
+                            <input type="text" class="form-control" id="inscricaoEstadual">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="situacaoCadastral" class="form-label">Situação Cadastral</label>
+                            <input type="text" class="form-control" id="situacaoCadastral">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="atividadePrincipal" class="form-label">Atividade Principal</label>
+                            <input type="text" class="form-control" id="atividadePrincipal">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="naturezaJuridica" class="form-label">Natureza Jurídica</label>
+                            <input type="text" class="form-control" id="naturezaJuridica">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dados do Representante Legal -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Dados do Representante Legal</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nomeRepresentante" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nomeRepresentante" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="rg" class="form-label">RG</label>
+                            <input type="text" class="form-control" id="rg" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cpf" class="form-label">CPF</label>
+                            <input type="text" class="form-control" id="cpf" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dataNascimento" class="form-label">Data de Nascimento</label>
+                            <input type="date" class="form-control" id="dataNascimento" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="telefone" class="form-label">Telefone</label>
+                            <input type="tel" class="form-control" id="telefone" required>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,8 +138,31 @@
                                 <option value="">Selecione...</option>
                                 <option value="AC">Acre</option>
                                 <option value="AL">Alagoas</option>
-                                <!-- ... outros estados ... -->
+                                <option value="AP">Amapá</option>
+                                <option value="AM">Amazonas</option>
+                                <option value="BA">Bahia</option>
+                                <option value="CE">Ceará</option>
+                                <option value="DF">Distrito Federal</option>
+                                <option value="ES">Espírito Santo</option>
+                                <option value="GO">Goiás</option>
+                                <option value="MA">Maranhão</option>
+                                <option value="MT">Mato Grosso</option>
+                                <option value="MS">Mato Grosso do Sul</option>
+                                <option value="MG">Minas Gerais</option>
+                                <option value="PA">Pará</option>
+                                <option value="PB">Paraíba</option>
+                                <option value="PR">Paraná</option>
+                                <option value="PE">Pernambuco</option>
+                                <option value="PI">Piauí</option>
+                                <option value="RJ">Rio de Janeiro</option>
+                                <option value="RN">Rio Grande do Norte</option>
+                                <option value="RS">Rio Grande do Sul</option>
+                                <option value="RO">Rondônia</option>
+                                <option value="RR">Roraima</option>
+                                <option value="SC">Santa Catarina</option>
                                 <option value="SP">São Paulo</option>
+                                <option value="SE">Sergipe</option>
+                                <option value="TO">Tocantins</option>
                             </select>
                         </div>
                     </div>
@@ -108,14 +182,151 @@
                         </select>
                     </div>
                     <div id="outroEndereco" style="display: none;">
-                        <!-- Campos do outro endereço aqui -->
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="cepEntrega" class="form-label">CEP</label>
+                                <input type="text" class="form-control" id="cepEntrega">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label for="logradouroEntrega" class="form-label">Logradouro</label>
+                                <input type="text" class="form-control" id="logradouroEntrega">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="numeroEntrega" class="form-label">Número</label>
+                                <input type="text" class="form-control" id="numeroEntrega">
+                            </div>
+                            <div class="col-md-8 mb-3">
+                                <label for="complementoEntrega" class="form-label">Complemento</label>
+                                <input type="text" class="form-control" id="complementoEntrega">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="bairroEntrega" class="form-label">Bairro</label>
+                                <input type="text" class="form-control" id="bairroEntrega">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cidadeEntrega" class="form-label">Cidade</label>
+                                <input type="text" class="form-control" id="cidadeEntrega">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="estadoEntrega" class="form-label">Estado</label>
+                                <select class="form-select" id="estadoEntrega">
+                                    <option value="">Selecione...</option>
+                                    <option value="AC">Acre</option>
+                                    <option value="AL">Alagoas</option>
+                                    <option value="AP">Amapá</option>
+                                    <option value="AM">Amazonas</option>
+                                    <option value="BA">Bahia</option>
+                                    <option value="CE">Ceará</option>
+                                    <option value="DF">Distrito Federal</option>
+                                    <option value="ES">Espírito Santo</option>
+                                    <option value="GO">Goiás</option>
+                                    <option value="MA">Maranhão</option>
+                                    <option value="MT">Mato Grosso</option>
+                                    <option value="MS">Mato Grosso do Sul</option>
+                                    <option value="MG">Minas Gerais</option>
+                                    <option value="PA">Pará</option>
+                                    <option value="PB">Paraíba</option>
+                                    <option value="PR">Paraná</option>
+                                    <option value="PE">Pernambuco</option>
+                                    <option value="PI">Piauí</option>
+                                    <option value="RJ">Rio de Janeiro</option>
+                                    <option value="RN">Rio Grande do Norte</option>
+                                    <option value="RS">Rio Grande do Sul</option>
+                                    <option value="RO">Rondônia</option>
+                                    <option value="RR">Roraima</option>
+                                    <option value="SC">Santa Catarina</option>
+                                    <option value="SP">São Paulo</option>
+                                    <option value="SE">Sergipe</option>
+                                    <option value="TO">Tocantins</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Botão Enviar -->
+            <!-- Planos -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Planos</h5>
+                </div>
+                <div class="card-body">
+                    <!-- TIM Black Empresa -->
+                    <div class="mb-4">
+                        <h6>TIM Black Empresa</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="planoBlack" class="form-label">Selecione o Plano</label>
+                                <select class="form-select" id="planoBlack">
+                                    <option value="">Selecione um plano</option>
+                                    <option value="6GB">6GB - R$ 39,99 (NV/AD B 4GB + 2GB V0325)</option>
+                                    <option value="30GB">30GB - R$ 52,99 (NV/AD B 10GB + 20GB V0325)</option>
+                                    <option value="40GB">40GB - R$ 64,99 (NV/AD B 20GB + 20GB V0325)</option>
+                                    <option value="50GB">50GB - R$ 69,99 (NV/AD B 30GB + 20GB V0325)</option>
+                                    <option value="80GB">80GB - R$ 79,99 (NV/AD B 30GB + 50GB V0325)</option>
+                                    <option value="100GB">100GB - R$ 99,99 (NV/AD B 50GB + 50GB V0325)</option>
+                                    <option value="150GB">150GB - R$ 149,99 (NV/AD B 100GB + 50GB DZ0124)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="quantidadeLinhas" class="form-label">Quantidade de Linhas</label>
+                                <input type="number" class="form-control" id="quantidadeLinhas" min="1" max="1000">
+                                <small class="text-muted">(Máximo: 1000 linhas)</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TIM Ultrafibra -->
+                    <div class="mb-4">
+                        <h6>TIM Ultrafibra</h6>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="planoUltrafibra" class="form-label">Selecione o Plano</label>
+                                <select class="form-select" id="planoUltrafibra">
+                                    <option value="">Selecione um plano</option>
+                                    <option value="300">300 MEGA - R$ 79,99/mês</option>
+                                    <option value="400">400 MEGA - R$ 99,99/mês</option>
+                                    <option value="600">600 MEGA - R$ 109,99/mês</option>
+                                    <option value="700">700 MEGA+ - R$ 119,99/mês</option>
+                                    <option value="700max">700 MEGA+ MAX - R$ 129,99/mês</option>
+                                    <option value="1giga">1 GIGA - R$ 139,99/mês</option>
+                                    <option value="1gigamax">1 GIGA+ MAX - R$ 149,99/mês</option>
+                                    <option value="2gigamax">2 GIGA+ MAX - R$ 369,99/mês</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="dataVencimento" class="form-label">Data de Vencimento</label>
+                                <select class="form-select" id="dataVencimento">
+                                    <option value="">Selecione o dia</option>
+                                    <option value="5">Dia 5</option>
+                                    <option value="10">Dia 10</option>
+                                    <option value="15">Dia 15</option>
+                                    <option value="20">Dia 20</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="tipoLinha" class="form-label">Tipo de Linha</label>
+                                <select class="form-select" id="tipoLinha">
+                                    <option value="">Selecione o tipo</option>
+                                    <option value="nova">Nova</option>
+                                    <option value="portabilidade">Portabilidade</option>
+                                    <option value="migracao">Migração</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
             <div class="text-center mb-4">
-                <button type="button" class="btn btn-primary btn-lg" onclick="enviarWhatsApp()">
+                <button type="button" class="btn btn-secondary me-2" onclick="limparFormulario()">
+                    <i class="bi bi-x-circle me-2"></i>Limpar
+                </button>
+                <button type="button" class="btn btn-success me-2" onclick="salvarFicha()">
+                    <i class="bi bi-save me-2"></i>Salvar
+                </button>
+                <button type="button" class="btn btn-primary" onclick="enviarWhatsApp()">
                     <i class="bi bi-whatsapp me-2"></i>Enviar via WhatsApp
                 </button>
             </div>
@@ -153,6 +364,9 @@
                 document.getElementById('razaoSocial').value = data.nome || '';
                 document.getElementById('nomeFantasia').value = data.fantasia || '';
                 document.getElementById('dataAbertura').value = data.abertura ? data.abertura.split('/').reverse().join('-') : '';
+                document.getElementById('situacaoCadastral').value = data.situacao || '';
+                document.getElementById('atividadePrincipal').value = data.atividade_principal?.texto || '';
+                document.getElementById('naturezaJuridica').value = data.natureza_juridica || '';
                 document.getElementById('cep').value = data.cep || '';
                 document.getElementById('logradouro').value = data.logradouro || '';
                 document.getElementById('numero').value = data.numero || '';
@@ -166,15 +380,39 @@
                 alert('Erro ao consultar CNPJ. Por favor, tente novamente.');
             }
         }
-        document.getElementById('pesquisarCnpj').addEventListener('click', consultarCNPJ);
+
+        function limparFormulario() {
+            document.getElementById('fichaForm').reset();
+            document.getElementById('outroEndereco').style.display = 'none';
+        }
+
+        function salvarFicha() {
+            // Implementar lógica de salvamento
+            alert('Funcionalidade de salvamento em desenvolvimento');
+        }
 
         function enviarWhatsApp() {
             // Coletar todos os dados do formulário
             const dados = {
+                // Dados da Empresa
                 cnpj: document.getElementById('cnpj').value,
                 razaoSocial: document.getElementById('razaoSocial').value,
                 nomeFantasia: document.getElementById('nomeFantasia').value,
                 dataAbertura: document.getElementById('dataAbertura').value,
+                inscricaoEstadual: document.getElementById('inscricaoEstadual').value,
+                situacaoCadastral: document.getElementById('situacaoCadastral').value,
+                atividadePrincipal: document.getElementById('atividadePrincipal').value,
+                naturezaJuridica: document.getElementById('naturezaJuridica').value,
+
+                // Dados do Representante
+                nomeRepresentante: document.getElementById('nomeRepresentante').value,
+                rg: document.getElementById('rg').value,
+                cpf: document.getElementById('cpf').value,
+                dataNascimento: document.getElementById('dataNascimento').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+
+                // Endereço
                 cep: document.getElementById('cep').value,
                 logradouro: document.getElementById('logradouro').value,
                 numero: document.getElementById('numero').value,
@@ -182,16 +420,35 @@
                 bairro: document.getElementById('bairro').value,
                 cidade: document.getElementById('cidade').value,
                 estado: document.getElementById('estado').value,
-                enderecoEntrega: document.getElementById('enderecoEntrega').value
+
+                // Planos
+                planoBlack: document.getElementById('planoBlack').value,
+                quantidadeLinhas: document.getElementById('quantidadeLinhas').value,
+                planoUltrafibra: document.getElementById('planoUltrafibra').value,
+                dataVencimento: document.getElementById('dataVencimento').value,
+                tipoLinha: document.getElementById('tipoLinha').value
             };
 
             // Criar a mensagem formatada
             let mensagem = `*Ficha TIM*\n\n`;
+            
             mensagem += `*Dados da Empresa*\n`;
             mensagem += `CNPJ: ${dados.cnpj}\n`;
             mensagem += `Razão Social: ${dados.razaoSocial}\n`;
             mensagem += `Nome Fantasia: ${dados.nomeFantasia}\n`;
-            mensagem += `Data de Abertura: ${dados.dataAbertura}\n\n`;
+            mensagem += `Data de Abertura: ${dados.dataAbertura}\n`;
+            mensagem += `Inscrição Estadual: ${dados.inscricaoEstadual}\n`;
+            mensagem += `Situação Cadastral: ${dados.situacaoCadastral}\n`;
+            mensagem += `Atividade Principal: ${dados.atividadePrincipal}\n`;
+            mensagem += `Natureza Jurídica: ${dados.naturezaJuridica}\n\n`;
+            
+            mensagem += `*Dados do Representante Legal*\n`;
+            mensagem += `Nome: ${dados.nomeRepresentante}\n`;
+            mensagem += `RG: ${dados.rg}\n`;
+            mensagem += `CPF: ${dados.cpf}\n`;
+            mensagem += `Data de Nascimento: ${dados.dataNascimento}\n`;
+            mensagem += `E-mail: ${dados.email}\n`;
+            mensagem += `Telefone: ${dados.telefone}\n\n`;
             
             mensagem += `*Endereço*\n`;
             mensagem += `CEP: ${dados.cep}\n`;
@@ -201,8 +458,12 @@
             mensagem += `Cidade: ${dados.cidade}\n`;
             mensagem += `Estado: ${dados.estado}\n\n`;
             
-            mensagem += `*Endereço de Entrega*\n`;
-            mensagem += `${dados.enderecoEntrega === 'sim' ? 'Mesmo endereço acima' : 'Outro endereço'}`;
+            mensagem += `*Planos*\n`;
+            mensagem += `TIM Black: ${dados.planoBlack}\n`;
+            mensagem += `Quantidade de Linhas: ${dados.quantidadeLinhas}\n`;
+            mensagem += `TIM Ultrafibra: ${dados.planoUltrafibra}\n`;
+            mensagem += `Data de Vencimento: ${dados.dataVencimento}\n`;
+            mensagem += `Tipo de Linha: ${dados.tipoLinha}`;
 
             // Número do WhatsApp (substitua pelo número correto)
             const numeroWhatsApp = '5511999999999';
@@ -218,6 +479,45 @@
         document.getElementById('enderecoEntrega').addEventListener('change', function() {
             const outroEndereco = document.getElementById('outroEndereco');
             outroEndereco.style.display = this.value === 'nao' ? 'block' : 'none';
+        });
+
+        // Adicionar máscaras aos campos
+        document.getElementById('cnpj').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 14) {
+                value = value.replace(/^(\d{2})(\d)/, '$1.$2');
+                value = value.replace(/^(\d{2})\.(\d{3})(\d)/, '$1.$2.$3');
+                value = value.replace(/\.(\d{3})(\d)/, '.$1/$2');
+                value = value.replace(/(\d{4})(\d)/, '$1-$2');
+                e.target.value = value;
+            }
+        });
+
+        document.getElementById('cpf').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/^(\d{3})(\d)/, '$1.$2');
+                value = value.replace(/^(\d{3})\.(\d{3})(\d)/, '$1.$2.$3');
+                value = value.replace(/\.(\d{3})(\d)/, '.$1-$2');
+                e.target.value = value;
+            }
+        });
+
+        document.getElementById('telefone').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 11) {
+                value = value.replace(/^(\d{2})(\d)/, '($1) $2');
+                value = value.replace(/(\d{5})(\d)/, '$1-$2');
+                e.target.value = value;
+            }
+        });
+
+        document.getElementById('cep').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length <= 8) {
+                value = value.replace(/^(\d{5})(\d)/, '$1-$2');
+                e.target.value = value;
+            }
         });
     </script>
 </body>
