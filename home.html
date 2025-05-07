@@ -12,8 +12,8 @@
     <nav class="bg-blue-900 text-white p-4">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center space-x-4">
-                <img src="fichapainel/images/tim-logo.svg" alt="TIM Logo" class="h-10">
-                <img src="fichapainel/images/valen-logo.svg" alt="Valen Logo" class="h-10">
+                <img src="public/images/tim-logo.svg" alt="TIM Logo" class="h-10">
+                <img src="public/images/valen-logo.svg" alt="Valen Logo" class="h-10">
             </div>
             <div class="text-xl font-bold">Sistema TIM</div>
         </div>
@@ -23,16 +23,82 @@
     <div class="container mx-auto px-4 py-8">
         <h1 class="text-3xl font-bold text-blue-900 mb-8 text-center">Bem-vindo ao Sistema</h1>
         
-        <!-- Botão Principal -->
-        <div class="max-w-md mx-auto">
-            <a href="/paineldevendas" class="block bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
+        <!-- Grid de Botões -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Ficha TIM -->
+            <a href="/painel-tim/public/ficha.html" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-blue-100 p-3 rounded-lg">
+                        <i class="bi bi-file-text text-2xl text-blue-900"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-blue-900">Ficha TIM</h2>
+                        <p class="text-gray-600">Cadastro de empresas e consulta CNPJ</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Painel de Vendas -->
+            <a href="/paineldevendas" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
                 <div class="flex items-center space-x-4">
                     <div class="bg-green-100 p-3 rounded-lg">
-                        <i class="bi bi-file-text text-2xl text-green-600"></i>
+                        <i class="bi bi-graph-up text-2xl text-green-600"></i>
                     </div>
                     <div>
                         <h2 class="text-xl font-semibold text-green-600">Painel de Vendas</h2>
-                        <p class="text-gray-600">Cadastro de empresas, consulta CNPJ e planos TIM</p>
+                        <p class="text-gray-600">Acompanhamento de vendas e métricas</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Consulta CNPJ -->
+            <a href="/api/consulta-cnpj" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-purple-100 p-3 rounded-lg">
+                        <i class="bi bi-search text-2xl text-purple-600"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-purple-600">Consulta CNPJ</h2>
+                        <p class="text-gray-600">Busca rápida de empresas</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Fichas Salvas -->
+            <a href="/fichas_salvas" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-yellow-100 p-3 rounded-lg">
+                        <i class="bi bi-folder text-2xl text-yellow-600"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-yellow-600">Fichas Salvas</h2>
+                        <p class="text-gray-600">Histórico de cadastros</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="/novo-projeto-whatsapp" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-green-100 p-3 rounded-lg">
+                        <i class="bi bi-whatsapp text-2xl text-green-600"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-green-600">WhatsApp</h2>
+                        <p class="text-gray-600">Integração com WhatsApp</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Histórico -->
+            <a href="/historical" class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-all transform hover:-translate-y-1">
+                <div class="flex items-center space-x-4">
+                    <div class="bg-gray-100 p-3 rounded-lg">
+                        <i class="bi bi-clock-history text-2xl text-gray-600"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-semibold text-gray-600">Histórico</h2>
+                        <p class="text-gray-600">Registro de atividades</p>
                     </div>
                 </div>
             </a>

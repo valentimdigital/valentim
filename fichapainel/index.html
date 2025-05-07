@@ -6,14 +6,14 @@
     <title>Ficha TIM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="fichapainel/styles.css">
 </head>
 <body>
     <nav class="navbar navbar-dark bg-primary">
         <div class="container">
             <div class="d-flex justify-content-between w-100">
-                <img src="images/tim-logo.svg" alt="TIM Logo" class="navbar-brand" height="40">
-                <img src="images/valen-logo.svg" alt="Valen Logo" class="navbar-brand" height="40">
+                <img src="fichapainel/images/tim-logo.svg" alt="TIM Logo" class="navbar-brand" height="40">
+                <img src="fichapainel/images/valen-logo.svg" alt="Valen Logo" class="navbar-brand" height="40">
             </div>
         </div>
     </nav>
@@ -62,6 +62,42 @@
                             <label for="naturezaJuridica" class="form-label">Natureza Jurídica</label>
                             <input type="text" class="form-control" id="naturezaJuridica">
                         </div>
+                    </div>
+                    <!-- Campos extras após Dados da Empresa -->
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="capitalSocial" class="form-label">Capital Social</label>
+                            <input type="text" class="form-control" id="capitalSocial" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="porte" class="form-label">Porte</label>
+                            <input type="text" class="form-control" id="porte" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="situacaoEspecial" class="form-label">Situação Especial</label>
+                            <input type="text" class="form-control" id="situacaoEspecial" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="motivoSituacao" class="form-label">Motivo da Situação Cadastral</label>
+                            <input type="text" class="form-control" id="motivoSituacao" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="site" class="form-label">Site</label>
+                            <input type="text" class="form-control" id="site" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="status" class="form-label">Status</label>
+                            <input type="text" class="form-control" id="status" readonly>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="tipo" class="form-label">Tipo</label>
+                            <input type="text" class="form-control" id="tipo" readonly>
+                        </div>
+                    </div>
+                    <!-- Quadro societário -->
+                    <div class="mb-3">
+                        <label for="qsa" class="form-label">Quadro Societário</label>
+                        <textarea class="form-control" id="qsa" rows="2" readonly></textarea>
                     </div>
                 </div>
             </div>
@@ -318,6 +354,24 @@
                 </div>
             </div>
 
+            <!-- Campo Atendente -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Atendente</h5>
+                </div>
+                <div class="card-body">
+                    <select class="form-select" id="atendente" required>
+                        <option value="">Selecione o atendente</option>
+                        <option value="Thayna">Thayna</option>
+                        <option value="Lene">Lene</option>
+                        <option value="Valentim">Valentim</option>
+                        <option value="Wellington">Wellington</option>
+                        <option value="Ana">Ana</option>
+                        <option value="Livia">Livia</option>
+                    </select>
+                </div>
+            </div>
+
             <!-- Botões de Ação -->
             <div class="text-center mb-4">
                 <button type="button" class="btn btn-secondary me-2" onclick="limparFormulario()">
@@ -335,32 +389,28 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
         async function consultarCNPJ() {
             const cnpj = document.getElementById('cnpj').value.replace(/\D/g, '');
             if (!cnpj) {
                 alert('Informe um CNPJ válido!');
                 return;
             }
-            
             try {
                 const res = await fetch('/api/consulta-cnpj', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ cnpj })
                 });
-                
                 if (!res.ok) {
                     throw new Error('Erro na consulta');
                 }
-                
                 const data = await res.json();
-                
+                console.log('Resposta da API ReceitaWS:', data);
                 if (data.status === 'ERROR' || data.error) {
                     alert('CNPJ não encontrado ou inválido!');
                     return;
                 }
-                
-                // Preencher os campos com os dados retornados
                 document.getElementById('razaoSocial').value = data.nome || '';
                 document.getElementById('nomeFantasia').value = data.fantasia || '';
                 document.getElementById('dataAbertura').value = data.abertura ? data.abertura.split('/').reverse().join('-') : '';
@@ -374,24 +424,93 @@
                 document.getElementById('bairro').value = data.bairro || '';
                 document.getElementById('cidade').value = data.municipio || '';
                 document.getElementById('estado').value = data.uf || '';
-                
+                document.getElementById('capitalSocial').value = data.capital_social || '';
+                document.getElementById('porte').value = data.porte || '';
+                document.getElementById('situacaoEspecial').value = data.situacao_especial || '';
+                document.getElementById('motivoSituacao').value = data.motivo_situacao || '';
+                document.getElementById('site').value = data.site || '';
+                document.getElementById('status').value = data.status || '';
+                document.getElementById('tipo').value = data.tipo || '';
+                if (Array.isArray(data.qsa)) {
+                    document.getElementById('qsa').value = data.qsa.map(s => `${s.nome} - ${s.qual}`).join('\n');
+                } else {
+                    document.getElementById('qsa').value = '';
+                }
             } catch (error) {
                 console.error('Erro ao consultar CNPJ:', error);
                 alert('Erro ao consultar CNPJ. Por favor, tente novamente.');
             }
         }
+        document.getElementById('pesquisarCnpj').addEventListener('click', consultarCNPJ);
 
-        function limparFormulario() {
+        window.limparFormulario = function() {
             document.getElementById('fichaForm').reset();
             document.getElementById('outroEndereco').style.display = 'none';
         }
 
-        function salvarFicha() {
-            // Implementar lógica de salvamento
-            alert('Funcionalidade de salvamento em desenvolvimento');
+        window.salvarFicha = function() {
+            console.log('[LOG] Botão Salvar clicado');
+            // Coletar todos os dados do formulário
+            const ficha = {
+                cnpj: document.getElementById('cnpj').value,
+                razaoSocial: document.getElementById('razaoSocial').value,
+                nomeFantasia: document.getElementById('nomeFantasia').value,
+                dataAbertura: document.getElementById('dataAbertura').value,
+                inscricaoEstadual: document.getElementById('inscricaoEstadual').value,
+                situacaoCadastral: document.getElementById('situacaoCadastral').value,
+                atividadePrincipal: document.getElementById('atividadePrincipal').value,
+                naturezaJuridica: document.getElementById('naturezaJuridica').value,
+                capitalSocial: document.getElementById('capitalSocial').value,
+                porte: document.getElementById('porte').value,
+                situacaoEspecial: document.getElementById('situacaoEspecial').value,
+                motivoSituacao: document.getElementById('motivoSituacao').value,
+                site: document.getElementById('site').value,
+                status: document.getElementById('status').value,
+                tipo: document.getElementById('tipo').value,
+                qsa: document.getElementById('qsa').value,
+                nomeRepresentante: document.getElementById('nomeRepresentante').value,
+                rg: document.getElementById('rg').value,
+                cpf: document.getElementById('cpf').value,
+                dataNascimento: document.getElementById('dataNascimento').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                cep: document.getElementById('cep').value,
+                logradouro: document.getElementById('logradouro').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value,
+                bairro: document.getElementById('bairro').value,
+                cidade: document.getElementById('cidade').value,
+                estado: document.getElementById('estado').value,
+                planoBlack: document.getElementById('planoBlack').value,
+                quantidadeLinhas: document.getElementById('quantidadeLinhas').value,
+                planoUltrafibra: document.getElementById('planoUltrafibra').value,
+                dataVencimento: document.getElementById('dataVencimento').value,
+                tipoLinha: document.getElementById('tipoLinha').value
+            };
+            console.log('[LOG] Dados coletados para salvar:', ficha);
+            // Enviar para o backend
+            fetch('/api/fichas', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(ficha)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    console.log('[LOG] Ficha salva com sucesso! ID:', data.id);
+                    window.location.href = '/fichas_salvas';
+                } else {
+                    console.error('[LOG] Erro ao salvar ficha:', data.error);
+                    alert('Erro ao salvar ficha!');
+                }
+            })
+            .catch(err => {
+                console.error('[LOG] Erro na requisição para salvar ficha:', err);
+                alert('Erro ao salvar ficha!');
+            });
         }
 
-        function enviarWhatsApp() {
+        window.enviarWhatsApp = function() {
             // Coletar todos os dados do formulário
             const dados = {
                 // Dados da Empresa
@@ -466,7 +585,16 @@
             mensagem += `Tipo de Linha: ${dados.tipoLinha}`;
 
             // Número do WhatsApp (substitua pelo número correto)
-            const numeroWhatsApp = '5511999999999';
+            const atendente = document.getElementById('atendente').value;
+            const numerosAtendentes = {
+                'Thayna': '5521975292833',
+                'Lene': '5521970582707',
+                'Valentim': '5521970582707',
+                'Wellington': '5521967233931',
+                'Ana': '5521987436748',
+                'Livia': '5521971258332'
+            };
+            const numeroWhatsApp = numerosAtendentes[atendente] || '5511999999999';
 
             // Criar o link do WhatsApp
             const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
@@ -519,6 +647,7 @@
                 e.target.value = value;
             }
         });
+    });
     </script>
 </body>
-</html> 
+</html>
