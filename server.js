@@ -34,7 +34,7 @@ app.get('/', (req, res) => {
 
 // Rota para o painel de vendas
 app.get('/paineldevendas', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/index.html'));
+    res.sendFile(path.join(__dirname, 'fichapainel/index.html'));
 });
 
 // Rota para consulta de CNPJ (POST)

@@ -126,27 +126,45 @@
     <script>
         async function consultarCNPJ() {
             const cnpj = document.getElementById('cnpj').value.replace(/\D/g, '');
-            if (!cnpj) return alert('Informe um CNPJ válido!');
-            const res = await fetch('/api/consulta-cnpj', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ cnpj })
-            });
-            const data = await res.json();
-            if (data.status === 'ERROR' || data.error) {
-                alert('CNPJ não encontrado ou inválido!');
+            if (!cnpj) {
+                alert('Informe um CNPJ válido!');
                 return;
             }
-            document.getElementById('razaoSocial').value = data.nome || '';
-            document.getElementById('nomeFantasia').value = data.fantasia || '';
-            document.getElementById('dataAbertura').value = data.abertura || '';
-            document.getElementById('cep').value = data.cep || '';
-            document.getElementById('logradouro').value = data.logradouro || '';
-            document.getElementById('numero').value = data.numero || '';
-            document.getElementById('complemento').value = data.complemento || '';
-            document.getElementById('bairro').value = data.bairro || '';
-            document.getElementById('cidade').value = data.municipio || '';
-            document.getElementById('estado').value = data.uf || '';
+            
+            try {
+                const res = await fetch('/api/consulta-cnpj', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ cnpj })
+                });
+                
+                if (!res.ok) {
+                    throw new Error('Erro na consulta');
+                }
+                
+                const data = await res.json();
+                
+                if (data.status === 'ERROR' || data.error) {
+                    alert('CNPJ não encontrado ou inválido!');
+                    return;
+                }
+                
+                // Preencher os campos com os dados retornados
+                document.getElementById('razaoSocial').value = data.nome || '';
+                document.getElementById('nomeFantasia').value = data.fantasia || '';
+                document.getElementById('dataAbertura').value = data.abertura ? data.abertura.split('/').reverse().join('-') : '';
+                document.getElementById('cep').value = data.cep || '';
+                document.getElementById('logradouro').value = data.logradouro || '';
+                document.getElementById('numero').value = data.numero || '';
+                document.getElementById('complemento').value = data.complemento || '';
+                document.getElementById('bairro').value = data.bairro || '';
+                document.getElementById('cidade').value = data.municipio || '';
+                document.getElementById('estado').value = data.uf || '';
+                
+            } catch (error) {
+                console.error('Erro ao consultar CNPJ:', error);
+                alert('Erro ao consultar CNPJ. Por favor, tente novamente.');
+            }
         }
         document.getElementById('pesquisarCnpj').addEventListener('click', consultarCNPJ);
 
