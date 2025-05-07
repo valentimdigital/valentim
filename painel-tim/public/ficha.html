@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha TIM</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        .form-section {
+            @apply bg-white p-8 rounded-lg shadow-lg mb-8 max-w-4xl mx-auto;
+        }
+        .form-title {
+            @apply text-2xl font-bold text-blue-900 mb-6 text-center;
+        }
+        .section-title {
+            @apply text-xl font-bold text-blue-800 mb-4 border-b-2 border-blue-200 pb-2;
+        }
+        .form-group {
+            @apply grid grid-cols-1 md:grid-cols-2 gap-6 mb-6;
+        }
+        .input-group {
+            @apply mb-4;
+        }
+        .input-label {
+            @apply block text-sm font-semibold text-gray-700 mb-2;
+        }
+        .input-field {
+            @apply w-full p-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200;
+        }
+        .tab-button {
+            @apply px-6 py-3 text-sm font-medium rounded-t-lg focus:outline-none;
+        }
+        .tab-button.active {
+            @apply bg-white text-blue-900 border-t-2 border-l-2 border-r-2 border-blue-200;
+        }
+        .tab-button:not(.active) {
+            @apply bg-gray-100 text-gray-600 hover:bg-gray-200;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen p-8">
+    <div class="max-w-6xl mx-auto">
+        <!-- Cabeçalho -->
+        <div class="bg-blue-900 text-white p-8 rounded-t-lg mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <img src="logo-tim.png" alt="Logo TIM" class="h-16">
+                <div class="text-center">
+                    <h1 class="text-4xl font-bold mb-2">FICHA TIM</h1>
+                    <p class="text-lg">Data: <span id="currentDate"></span></p>
+                </div>
+                <img src="logo-parceiro.png" alt="Logo Parceiro TIM" class="h-16">
+            </div>
+        </div>
+
+        <!-- Abas de Produtos -->
+        <div class="flex mb-6 space-x-2 justify-center">
+            <button class="tab-button active" data-tab="movel">TIM Black Empresa</button>
+            <button class="tab-button" data-tab="fibra">TIM Ultrafibra</button>
+            <button class="tab-button" data-tab="wttx">TIM WTTX</button>
+            <button class="tab-button" data-tab="office">TIM Office</button>
+        </div>
+
+        <form class="space-y-8">
+            <!-- Dados da Empresa -->
+            <div class="form-section">
+                <h2 class="form-title">Dados da Empresa</h2>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label class="input-label">CNPJ</label>
+                        <div class="flex gap-2">
+                            <input type="text" class="input-field" placeholder="00.000.000/0000-00">
+                            <button type="button" id="btnPesquisarCNPJ" class="px-4 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
+                                Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Razão Social</label>
+                        <input type="text" class="input-field" placeholder="Digite a razão social">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Nome Fantasia</label>
+                        <input type="text" class="input-field" placeholder="Digite o nome fantasia">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Data de Abertura</label>
+                        <input type="text" class="input-field" placeholder="Data de abertura">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Inscrição Estadual</label>
+                        <input type="text" class="input-field" placeholder="Digite a inscrição estadual">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Situação Cadastral</label>
+                        <input type="text" class="input-field" placeholder="Digite a situação cadastral">
+                    </div>
+                    <div class="input-group col-span-2">
+                        <label class="input-label">Atividade Principal</label>
+                        <input type="text" class="input-field" placeholder="Atividade principal">
+                    </div>
+                    <div class="input-group col-span-2">
+                        <label class="input-label">Natureza Jurídica</label>
+                        <input type="text" class="input-field" placeholder="Natureza jurídica">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dados do Representante -->
+            <div class="form-section">
+                <h2 class="form-title">Dados do Representante Legal</h2>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label class="input-label">Nome</label>
+                        <input type="text" class="input-field" placeholder="Digite o nome completo">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">RG</label>
+                        <input type="text" class="input-field" placeholder="Digite o RG">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">CPF</label>
+                        <input type="text" class="input-field" placeholder="000.000.000-00">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Data de Nascimento</label>
+                        <input type="date" class="input-field">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">E-mail</label>
+                        <input type="email" class="input-field" placeholder="exemplo@email.com">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Telefone</label>
+                        <input type="text" class="input-field" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endereço -->
+            <div class="form-section">
+                <h2 class="form-title">Endereço</h2>
+                <div class="form-group">
+                    <div class="input-group">
+                        <label class="input-label">Logradouro</label>
+                        <input type="text" class="input-field" placeholder="Rua, Avenida, etc">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Número</label>
+                        <input type="text" class="input-field" placeholder="Número">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Complemento</label>
+                        <input type="text" class="input-field" placeholder="Apartamento, sala, etc">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Bairro</label>
+                        <input type="text" class="input-field" placeholder="Digite o bairro">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">CEP</label>
+                        <input type="text" class="input-field" placeholder="00000-000">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Município</label>
+                        <input type="text" class="input-field" placeholder="Digite o município">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Estado</label>
+                        <select class="input-field">
+                            <option value="">Selecione o estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endereço de Entrega -->
+            <div class="form-section">
+                <h2 class="form-title">Endereço de Entrega</h2>
+                <div class="mb-4">
+                    <label class="input-label">Mesmo endereço da empresa?</label>
+                    <select id="mesmoEndereco" class="input-field">
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                    </select>
+                </div>
+                <div id="enderecoEntrega" class="form-group hidden">
+                    <div class="input-group">
+                        <label class="input-label">Logradouro</label>
+                        <input type="text" class="input-field" placeholder="Rua, Avenida, etc">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Número</label>
+                        <input type="text" class="input-field" placeholder="Número">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Complemento</label>
+                        <input type="text" class="input-field" placeholder="Apartamento, sala, etc">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Bairro</label>
+                        <input type="text" class="input-field" placeholder="Digite o bairro">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">CEP</label>
+                        <input type="text" class="input-field" placeholder="00000-000">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Município</label>
+                        <input type="text" class="input-field" placeholder="Digite o município">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">Estado</label>
+                        <select class="input-field">
+                            <option value="">Selecione o estado</option>
+                            <option value="AC">Acre</option>
+                            <option value="AL">Alagoas</option>
+                            <option value="AP">Amapá</option>
+                            <option value="AM">Amazonas</option>
+                            <option value="BA">Bahia</option>
+                            <option value="CE">Ceará</option>
+                            <option value="DF">Distrito Federal</option>
+                            <option value="ES">Espírito Santo</option>
+                            <option value="GO">Goiás</option>
+                            <option value="MA">Maranhão</option>
+                            <option value="MT">Mato Grosso</option>
+                            <option value="MS">Mato Grosso do Sul</option>
+                            <option value="MG">Minas Gerais</option>
+                            <option value="PA">Pará</option>
+                            <option value="PB">Paraíba</option>
+                            <option value="PR">Paraná</option>
+                            <option value="PE">Pernambuco</option>
+                            <option value="PI">Piauí</option>
+                            <option value="RJ">Rio de Janeiro</option>
+                            <option value="RN">Rio Grande do Norte</option>
+                            <option value="RS">Rio Grande do Sul</option>
+                            <option value="RO">Rondônia</option>
+                            <option value="RR">Roraima</option>
+                            <option value="SC">Santa Catarina</option>
+                            <option value="SP">São Paulo</option>
+                            <option value="SE">Sergipe</option>
+                            <option value="TO">Tocantins</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Planos -->
+            <div class="form-section" id="planosSection">
+                <h2 class="form-title">Planos</h2>
+                <div class="space-y-6">
+                    <!-- TIM Black Empresa -->
+                    <div class="plano-section" id="movelSection">
+                        <h3 class="section-title">TIM Black Empresa</h3>
+                        <div class="form-group">
+                            <div class="input-group col-span-2">
+                                <label class="input-label">Selecione o Plano</label>
+                                <select class="input-field" id="planoTim">
+                                    <option value="">Selecione um plano</option>
+                                    <option value="plano1">6GB - R$ 39,99 (NV/AD B 4GB + 2GB V0325)</option>
+                                    <option value="plano2">30GB - R$ 52,99 (NV/AD B 10GB + 20GB V0325)</option>
+                                    <option value="plano3">40GB - R$ 64,99 (NV/AD B 20GB + 20GB V0325)</option>
+                                    <option value="plano4">50GB - R$ 69,99 (NV/AD B 30GB + 20GB V0325)</option>
+                                    <option value="plano5">80GB - R$ 79,99 (NV/AD B 30GB + 50GB V0325)</option>
+                                    <option value="plano6">100GB - R$ 99,99 (NV/AD B 50GB + 50GB V0325)</option>
+                                    <option value="plano7">150GB - R$ 149,99 (NV/AD B 100GB + 50GB DZ0124)</option>
+                                </select>
+                            </div>
+                            <div class="input-group col-span-2">
+                                <label class="input-label">Quantidade de Linhas</label>
+                                <div class="flex gap-2 items-center">
+                                    <input type="number" id="quantidadeLinhas" class="input-field" min="1" max="1000" value="1" onchange="validarQuantidade(this)">
+                                    <span class="text-sm text-gray-600">(Máximo: 1000 linhas)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TIM Ultrafibra -->
+                    <div class="plano-section hidden" id="fibraSection">
+                        <h3 class="section-title">TIM Ultrafibra</h3>
+                        <div class="form-group">
+                            <div class="input-group col-span-2">
+                                <label class="input-label">Selecione o Plano</label>
+                                <select class="input-field">
+                                    <option value="">Selecione um plano</option>
+                                    <option value="fibra1">300 MEGA - R$ 79,99/mês</option>
+                                    <option value="fibra2">400 MEGA - R$ 99,99/mês</option>
+                                    <option value="fibra3">600 MEGA - R$ 109,99/mês</option>
+                                    <option value="fibra4">700 MEGA+ - R$ 119,99/mês</option>
+                                    <option value="fibra5">700 MEGA+ MAX - R$ 129,99/mês</option>
+                                    <option value="fibra6">1 GIGA - R$ 139,99/mês</option>
+                                    <option value="fibra7">1 GIGA+ - R$ 149,99/mês</option>
+                                    <option value="fibra8">1 GIGA+ MAX - R$ 149,99/mês</option>
+                                    <option value="fibra9">2 GIGA+ MAX - R$ 369,99/mês</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configurações do Plano -->
+                    <div class="form-group mt-6">
+                        <div class="input-group">
+                            <label class="input-label">Data de Vencimento</label>
+                            <select class="input-field">
+                                <option value="">Selecione o dia</option>
+                                <option value="5">Dia 5</option>
+                                <option value="10">Dia 10</option>
+                                <option value="15">Dia 15</option>
+                                <option value="20">Dia 20</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label class="input-label">Tipo de Linha</label>
+                            <select class="input-field">
+                                <option value="">Selecione o tipo</option>
+                                <option value="nova">Nova</option>
+                                <option value="portabilidade">Portabilidade</option>
+                                <option value="migracao">Migração</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botões -->
+            <div class="flex justify-center space-x-4 mt-8">
+                <button type="reset" class="px-8 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors">
+                    Limpar
+                </button>
+                <button type="button" id="btnSalvar" class="px-8 py-3 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">
+                    Salvar
+                </button>
+            </div>
+
+            <!-- Botão Enviar WhatsApp -->
+            <div class="form-section">
+                <div class="flex justify-center">
+                    <button type="button" onclick="enviarWhatsApp()" class="bg-green-600 hover:bg-green-700 text-white font-bold py-4 px-8 rounded-lg text-lg flex items-center gap-2 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                        </svg>
+                        Enviar via WhatsApp
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="consulta-cnpj.js"></script>
+    <script>
+        // Atualiza a data atual
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('pt-BR');
+
+        // Controle das abas
+        const tabButtons = document.querySelectorAll('.tab-button');
+        const planoSections = document.querySelectorAll('.plano-section');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active de todos os botões
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                // Adiciona active ao botão clicado
+                button.classList.add('active');
+
+                // Esconde todas as seções
+                planoSections.forEach(section => section.classList.add('hidden'));
+                // Mostra a seção correspondente
+                const sectionToShow = document.getElementById(button.dataset.tab + 'Section');
+                if (sectionToShow) {
+                    sectionToShow.classList.remove('hidden');
+                }
+            });
+        });
+
+        // Adiciona evento de consulta ao campo de CNPJ
+        const campoCNPJ = document.querySelector('input[placeholder="00.000.000/0000-00"]');
+        const btnPesquisarCNPJ = document.getElementById('btnPesquisarCNPJ');
+
+        // Função para verificar se o CNPJ é válido
+        function cnpjValido(cnpj) {
+            return cnpj.replace(/\D/g, '').length === 14;
+        }
+
+        // Função para atualizar o estado do botão
+        function atualizarEstadoBotao() {
+            btnPesquisarCNPJ.disabled = !cnpjValido(campoCNPJ.value);
+            btnPesquisarCNPJ.classList.toggle('opacity-50', !cnpjValido(campoCNPJ.value));
+        }
+
+        // Evento de input para atualizar o estado do botão
+        campoCNPJ.addEventListener('input', function() {
+            this.value = maskCNPJ(this);
+            atualizarEstadoBotao();
+        });
+
+        // Evento de clique no botão
+        btnPesquisarCNPJ.addEventListener('click', function() {
+            if (cnpjValido(campoCNPJ.value)) {
+                consultarCNPJ(campoCNPJ.value);
+            }
+        });
+
+        // Evento de tecla Enter no campo
+        campoCNPJ.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && cnpjValido(this.value)) {
+                e.preventDefault();
+                consultarCNPJ(this.value);
+            }
+        });
+
+        // Máscaras para os campos
+        function maskCPF(input) {
+            return input.value
+                .replace(/\D/g, '')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d{1,2})/, '$1-$2')
+                .replace(/(-\d{2})\d+?$/, '$1');
+        }
+
+        function maskPhone(input) {
+            return input.value
+                .replace(/\D/g, '')
+                .replace(/(\d{2})(\d)/, '($1) $2')
+                .replace(/(\d{5})(\d)/, '$1-$2')
+                .replace(/(-\d{4})\d+?$/, '$1');
+        }
+
+        function maskCNPJ(input) {
+            return input.value
+                .replace(/\D/g, '')
+                .replace(/(\d{2})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1.$2')
+                .replace(/(\d{3})(\d)/, '$1/$2')
+                .replace(/(\d{4})(\d)/, '$1-$2')
+                .replace(/(-\d{2})\d+?$/, '$1');
+        }
+
+        function maskCEP(input) {
+            return input.value
+                .replace(/\D/g, '')
+                .replace(/(\d{5})(\d)/, '$1-$2')
+                .replace(/(-\d{3})\d+?$/, '$1');
+        }
+
+        // Aplicando as máscaras
+        document.querySelector('input[placeholder="000.000.000-00"]').addEventListener('input', function() {
+            this.value = maskCPF(this);
+        });
+
+        document.querySelector('input[placeholder="(00) 00000-0000"]').addEventListener('input', function() {
+            this.value = maskPhone(this);
+        });
+
+        document.querySelector('input[placeholder="00000-000"]').addEventListener('input', function() {
+            this.value = maskCEP(this);
+        });
+
+        // Inicializa o estado do botão
+        atualizarEstadoBotao();
+
+        // Função para formatar o CNPJ
+        function formatCNPJ(cnpj) {
+            return cnpj.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/, "$1.$2.$3/$4-$5");
+        }
+
+        // Função para formatar o CPF
+        function formatCPF(cpf) {
+            return cpf.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+        }
+
+        // Função para formatar o telefone
+        function formatTelefone(telefone) {
+            return telefone.replace(/^(\d{2})(\d{5})(\d{4})$/, "($1) $2-$3");
+        }
+
+        // Função para formatar o CEP
+        function formatCEP(cep) {
+            return cep.replace(/^(\d{5})(\d{3})$/, "$1-$2");
+        }
+
+        // Função para validar a quantidade de linhas
+        function validarQuantidade(input) {
+            let valor = parseInt(input.value);
+            if (valor < 1) {
+                input.value = 1;
+            } else if (valor > 1000) {
+                input.value = 1000;
+            }
+        }
+
+        function enviarWhatsApp() {
+            // Coletar todos os dados do formulário
+            const dadosEmpresa = {
+                cnpj: document.querySelector('input[placeholder="00.000.000/0000-00"]').value,
+                razaoSocial: document.querySelector('input[placeholder="Digite a razão social"]').value,
+                nomeFantasia: document.querySelector('input[placeholder="Digite o nome fantasia"]').value,
+                dataAbertura: document.querySelector('input[placeholder="Data de abertura"]').value,
+                inscricaoEstadual: document.querySelector('input[placeholder="Digite a inscrição estadual"]').value,
+                situacaoCadastral: document.querySelector('input[placeholder="Digite a situação cadastral"]').value
+            };
+
+            const dadosRepresentante = {
+                nome: document.querySelector('input[placeholder="Digite o nome completo"]').value,
+                rg: document.querySelector('input[placeholder="Digite o RG"]').value,
+                cpf: document.querySelector('input[placeholder="000.000.000-00"]').value,
+                dataNascimento: document.querySelector('input[type="date"]').value,
+                email: document.querySelector('input[type="email"]').value,
+                telefone: document.querySelector('input[placeholder="(00) 00000-0000"]').value
+            };
+
+            const endereco = {
+                logradouro: document.querySelector('input[placeholder="Rua, Avenida, etc"]').value,
+                numero: document.querySelector('input[placeholder="Número"]').value,
+                complemento: document.querySelector('input[placeholder="Apartamento, sala, etc"]').value,
+                bairro: document.querySelector('input[placeholder="Digite o bairro"]').value,
+                cep: document.querySelector('input[placeholder="00000-000"]').value,
+                municipio: document.querySelector('input[placeholder="Digite o município"]').value,
+                estado: document.querySelector('select.input-field').value
+            };
+
+            // Criar a mensagem formatada
+            let mensagem = `*FICHA TIM*\n\n`;
+            
+            mensagem += `*Dados da Empresa*\n`;
+            mensagem += `CNPJ: ${dadosEmpresa.cnpj}\n`;
+            mensagem += `Razão Social: ${dadosEmpresa.razaoSocial}\n`;
+            mensagem += `Nome Fantasia: ${dadosEmpresa.nomeFantasia}\n`;
+            mensagem += `Data de Abertura: ${dadosEmpresa.dataAbertura}\n`;
+            mensagem += `Inscrição Estadual: ${dadosEmpresa.inscricaoEstadual}\n`;
+            mensagem += `Situação Cadastral: ${dadosEmpresa.situacaoCadastral}\n\n`;
+
+            mensagem += `*Dados do Representante Legal*\n`;
+            mensagem += `Nome: ${dadosRepresentante.nome}\n`;
+            mensagem += `RG: ${dadosRepresentante.rg}\n`;
+            mensagem += `CPF: ${dadosRepresentante.cpf}\n`;
+            mensagem += `Data de Nascimento: ${dadosRepresentante.dataNascimento}\n`;
+            mensagem += `E-mail: ${dadosRepresentante.email}\n`;
+            mensagem += `Telefone: ${dadosRepresentante.telefone}\n\n`;
+
+            mensagem += `*Endereço*\n`;
+            mensagem += `CEP: ${endereco.cep}\n`;
+            mensagem += `Logradouro: ${endereco.logradouro}, ${endereco.numero}\n`;
+            mensagem += endereco.complemento ? `Complemento: ${endereco.complemento}\n` : '';
+            mensagem += `Bairro: ${endereco.bairro}\n`;
+            mensagem += `Município: ${endereco.municipio}\n`;
+            mensagem += `Estado: ${endereco.estado}\n\n`;
+
+            // Adicionar informações do plano selecionado
+            const planoSelecionado = document.getElementById('planoTim');
+            const quantidadeLinhas = document.getElementById('quantidadeLinhas').value;
+            
+            mensagem += `*Plano Selecionado*\n`;
+            mensagem += `Plano: ${planoSelecionado.options[planoSelecionado.selectedIndex].text}\n`;
+            mensagem += `Quantidade de Linhas: ${quantidadeLinhas}\n\n`;
+
+            const mesmoEndereco = document.getElementById('mesmoEndereco').value;
+            mensagem += `*Endereço de Entrega*\n`;
+            mensagem += mesmoEndereco === 'sim' ? 'Mesmo endereço acima' : 'Outro endereço (preencher durante o atendimento)';
+
+            // Número do WhatsApp atualizado
+            const numeroWhatsApp = '5521975292833';
+
+            // Criar o link do WhatsApp
+            const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+            // Abrir o WhatsApp
+            window.open(linkWhatsApp, '_blank');
+        }
+
+        function salvarFichaTxt() {
+            // Coletar todos os dados do formulário (mesmo que no enviarWhatsApp)
+            const dadosEmpresa = {
+                cnpj: document.querySelector('input[placeholder="00.000.000/0000-00"]').value,
+                razaoSocial: document.querySelector('input[placeholder="Digite a razão social"]').value,
+                nomeFantasia: document.querySelector('input[placeholder="Digite o nome fantasia"]').value,
+                dataAbertura: document.querySelector('input[placeholder="Data de abertura"]').value,
+                inscricaoEstadual: document.querySelector('input[placeholder="Digite a inscrição estadual"]').value,
+                situacaoCadastral: document.querySelector('input[placeholder="Digite a situação cadastral"]').value
+            };
+
+            const dadosRepresentante = {
+                nome: document.querySelector('input[placeholder="Digite o nome completo"]').value,
+                rg: document.querySelector('input[placeholder="Digite o RG"]').value,
+                cpf: document.querySelector('input[placeholder="000.000.000-00"]').value,
+                dataNascimento: document.querySelector('input[type="date"]').value,
+                email: document.querySelector('input[type="email"]').value,
+                telefone: document.querySelector('input[placeholder="(00) 00000-0000"]').value
+            };
+
+            const endereco = {
+                logradouro: document.querySelector('input[placeholder="Rua, Avenida, etc"]').value,
+                numero: document.querySelector('input[placeholder="Número"]').value,
+                complemento: document.querySelector('input[placeholder="Apartamento, sala, etc"]').value,
+                bairro: document.querySelector('input[placeholder="Digite o bairro"]').value,
+                cep: document.querySelector('input[placeholder="00000-000"]').value,
+                municipio: document.querySelector('input[placeholder="Digite o município"]').value,
+                estado: document.querySelector('select.input-field').value
+            };
+
+            // Adicionar informações do plano selecionado
+            const planoSelecionado = document.getElementById('planoTim');
+            const quantidadeLinhas = document.getElementById('quantidadeLinhas').value;
+
+            // Criar a mensagem formatada
+            let mensagem = `*FICHA TIM*\n\n`;
+            mensagem += `*Dados da Empresa*\n`;
+            mensagem += `CNPJ: ${dadosEmpresa.cnpj}\n`;
+            mensagem += `Razão Social: ${dadosEmpresa.razaoSocial}\n`;
+            mensagem += `Nome Fantasia: ${dadosEmpresa.nomeFantasia}\n`;
+            mensagem += `Data de Abertura: ${dadosEmpresa.dataAbertura}\n`;
+            mensagem += `Inscrição Estadual: ${dadosEmpresa.inscricaoEstadual}\n`;
+            mensagem += `Situação Cadastral: ${dadosEmpresa.situacaoCadastral}\n\n`;
+            mensagem += `*Dados do Representante Legal*\n`;
+            mensagem += `Nome: ${dadosRepresentante.nome}\n`;
+            mensagem += `RG: ${dadosRepresentante.rg}\n`;
+            mensagem += `CPF: ${dadosRepresentante.cpf}\n`;
+            mensagem += `Data de Nascimento: ${dadosRepresentante.dataNascimento}\n`;
+            mensagem += `E-mail: ${dadosRepresentante.email}\n`;
+            mensagem += `Telefone: ${dadosRepresentante.telefone}\n\n`;
+            mensagem += `*Endereço*\n`;
+            mensagem += `CEP: ${endereco.cep}\n`;
+            mensagem += `Logradouro: ${endereco.logradouro}, ${endereco.numero}\n`;
+            mensagem += endereco.complemento ? `Complemento: ${endereco.complemento}\n` : '';
+            mensagem += `Bairro: ${endereco.bairro}\n`;
+            mensagem += `Município: ${endereco.municipio}\n`;
+            mensagem += `Estado: ${endereco.estado}\n\n`;
+            mensagem += `*Plano Selecionado*\n`;
+            mensagem += `Plano: ${planoSelecionado.options[planoSelecionado.selectedIndex].text}\n`;
+            mensagem += `Quantidade de Linhas: ${quantidadeLinhas}\n\n`;
+
+            // Gerar arquivo txt
+            const blob = new Blob([mensagem], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `ficha_tim_${dadosEmpresa.cnpj.replace(/\D/g, '')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Adicionar evento ao botão Salvar
+        const btnSalvar = document.querySelector('button#btnSalvar');
+        if (btnSalvar) {
+            btnSalvar.addEventListener('click', salvarFichaTxt);
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  password      String
+  role          String    @default("USER")
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Cliente {
+  id                String    @id @default(cuid())
+  cnpj              String    @unique
+  nomeEmpresarial   String
+  dataAbertura      DateTime
+  atividades        String
+  naturezaJuridica  String
+  endereco          String
+  telefone          String?
+  email             String?
+  capitalSocial     Float
+  simplesNacional   Boolean
+  mei               Boolean
+  situacaoCadastral String
+  limiteCredito     Boolean
+  dividasTim        Boolean
+  etapaVenda        String
+  responsavel       String
+  contatoNome       String?
+  contatoNumero     String?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+} 
