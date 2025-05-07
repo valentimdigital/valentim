@@ -1,7 +1,10 @@
 const express = require('express');
 const path = require('path');
+const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(express.json());
 
 // Servir arquivos estáticos da raiz
 app.use(express.static(__dirname));
@@ -34,9 +37,17 @@ app.get('/paineldevendas', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-// Rota para consulta CNPJ
-app.get('/api/consulta-cnpj', (req, res) => {
-    res.sendFile(path.join(__dirname, 'api/consulta-cnpj.js'));
+// Rota para consulta de CNPJ (POST)
+app.post('/api/consulta-cnpj', async (req, res) => {
+    const { cnpj } = req.body;
+    if (!cnpj) return res.status(400).json({ error: 'CNPJ não informado' });
+    try {
+        const response = await fetch(`https://www.receitaws.com.br/v1/cnpj/${cnpj}`);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao consultar CNPJ' });
+    }
 });
 
 app.listen(port, () => {
