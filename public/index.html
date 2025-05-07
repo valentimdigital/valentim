@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha TIM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar navbar-dark bg-primary">
+        <div class="container">
+            <div class="d-flex justify-content-between w-100">
+                <img src="images/tim-logo.svg" alt="TIM Logo" class="navbar-brand" height="40">
+                <img src="images/valen-logo.svg" alt="Valen Logo" class="navbar-brand" height="40">
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <form id="fichaForm" class="needs-validation" novalidate>
+            <!-- Dados da Empresa -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Dados da Empresa</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="cnpj" class="form-label">CNPJ</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="cnpj" required>
+                                <button type="button" class="btn btn-primary" id="pesquisarCnpj">Pesquisar</button>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="razaoSocial" class="form-label">Razão Social</label>
+                            <input type="text" class="form-control" id="razaoSocial" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="nomeFantasia" class="form-label">Nome Fantasia</label>
+                            <input type="text" class="form-control" id="nomeFantasia">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="dataAbertura" class="form-label">Data de Abertura</label>
+                            <input type="date" class="form-control" id="dataAbertura">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endereço -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Endereço</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="cep" class="form-label">CEP</label>
+                            <input type="text" class="form-control" id="cep" required>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label for="logradouro" class="form-label">Logradouro</label>
+                            <input type="text" class="form-control" id="logradouro" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="numero" class="form-label">Número</label>
+                            <input type="text" class="form-control" id="numero" required>
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <label for="complemento" class="form-label">Complemento</label>
+                            <input type="text" class="form-control" id="complemento">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="bairro" class="form-label">Bairro</label>
+                            <input type="text" class="form-control" id="bairro" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="cidade" class="form-label">Cidade</label>
+                            <input type="text" class="form-control" id="cidade" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="estado" class="form-label">Estado</label>
+                            <select class="form-select" id="estado" required>
+                                <option value="">Selecione...</option>
+                                <option value="AC">Acre</option>
+                                <option value="AL">Alagoas</option>
+                                <!-- ... outros estados ... -->
+                                <option value="SP">São Paulo</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Endereço de Entrega -->
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Endereço de Entrega</h5>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <select class="form-select" id="enderecoEntrega" required>
+                            <option value="sim">Mesmo endereço acima</option>
+                            <option value="nao">Outro endereço</option>
+                        </select>
+                    </div>
+                    <div id="outroEndereco" style="display: none;">
+                        <!-- Campos do outro endereço aqui -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botão Enviar -->
+            <div class="text-center mb-4">
+                <button type="button" class="btn btn-primary btn-lg" onclick="enviarWhatsApp()">
+                    <i class="bi bi-whatsapp me-2"></i>Enviar via WhatsApp
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function enviarWhatsApp() {
+            // Coletar todos os dados do formulário
+            const dados = {
+                cnpj: document.getElementById('cnpj').value,
+                razaoSocial: document.getElementById('razaoSocial').value,
+                nomeFantasia: document.getElementById('nomeFantasia').value,
+                dataAbertura: document.getElementById('dataAbertura').value,
+                cep: document.getElementById('cep').value,
+                logradouro: document.getElementById('logradouro').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value,
+                bairro: document.getElementById('bairro').value,
+                cidade: document.getElementById('cidade').value,
+                estado: document.getElementById('estado').value,
+                enderecoEntrega: document.getElementById('enderecoEntrega').value
+            };
+
+            // Criar a mensagem formatada
+            let mensagem = `*Ficha TIM*\n\n`;
+            mensagem += `*Dados da Empresa*\n`;
+            mensagem += `CNPJ: ${dados.cnpj}\n`;
+            mensagem += `Razão Social: ${dados.razaoSocial}\n`;
+            mensagem += `Nome Fantasia: ${dados.nomeFantasia}\n`;
+            mensagem += `Data de Abertura: ${dados.dataAbertura}\n\n`;
+            
+            mensagem += `*Endereço*\n`;
+            mensagem += `CEP: ${dados.cep}\n`;
+            mensagem += `Logradouro: ${dados.logradouro}, ${dados.numero}\n`;
+            mensagem += dados.complemento ? `Complemento: ${dados.complemento}\n` : '';
+            mensagem += `Bairro: ${dados.bairro}\n`;
+            mensagem += `Cidade: ${dados.cidade}\n`;
+            mensagem += `Estado: ${dados.estado}\n\n`;
+            
+            mensagem += `*Endereço de Entrega*\n`;
+            mensagem += `${dados.enderecoEntrega === 'sim' ? 'Mesmo endereço acima' : 'Outro endereço'}`;
+
+            // Número do WhatsApp (substitua pelo número correto)
+            const numeroWhatsApp = '5511999999999';
+
+            // Criar o link do WhatsApp
+            const linkWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+            // Abrir o WhatsApp
+            window.open(linkWhatsApp, '_blank');
+        }
+
+        // Mostrar/ocultar campos de outro endereço
+        document.getElementById('enderecoEntrega').addEventListener('change', function() {
+            const outroEndereco = document.getElementById('outroEndereco');
+            outroEndereco.style.display = this.value === 'nao' ? 'block' : 'none';
+        });
+    </script>
+</body>
+</html> 

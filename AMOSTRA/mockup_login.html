@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Vendas TIM - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --tim-blue: #00348D;
+      --tim-red: #E40613;
+      --tim-light-blue: #E6F0FF;
+      --tim-light-red: #FFE6E8;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f5f5;
+    }
+    
+    .login-container {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+    }
+    
+    .login-card {
+      width: 100%;
+      max-width: 28rem;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+    }
+    
+    .login-logo {
+      margin: 0 auto;
+      height: 3rem;
+    }
+    
+    .login-title {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--tim-blue);
+    }
+    
+    .login-subtitle {
+      margin-top: 0.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    
+    .login-form {
+      margin-top: 2rem;
+    }
+    
+    .login-input-group {
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    }
+    
+    .login-input {
+      width: 100%;
+      border: 1px solid #d1d5db;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+    }
+    
+    .login-input-first {
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+      border-bottom: none;
+    }
+    
+    .login-input-last {
+      border-bottom-left-radius: 0.5rem;
+      border-bottom-right-radius: 0.5rem;
+    }
+    
+    .login-button {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--tim-blue);
+      color: white;
+      font-weight: 600;
+      padding: 0.75rem 1rem;
+      border-radius: 0.5rem;
+      margin-top: 1.5rem;
+      transition: background-color 0.2s;
+    }
+    
+    .login-button:hover {
+      background-color: #002266;
+    }
+    
+    .login-footer {
+      margin-top: 1.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-card">
+      <div style="text-align: center;">
+        <img src="https://www.tim.com.br/images/logo-tim.svg" alt="TIM Logo" class="login-logo">
+        <h2 class="login-title">
+          Painel de Vendas TIM
+        </h2>
+        <p class="login-subtitle">
+          Acesse sua conta para gerenciar clientes empresariais
+        </p>
+      </div>
+      
+      <form class="login-form">
+        <div class="login-input-group">
+          <div>
+            <label for="email" class="sr-only">
+              Email
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              autocomplete="email"
+              required
+              class="login-input login-input-first"
+              placeholder="Email"
+            />
+          </div>
+          <div>
+            <label for="senha" class="sr-only">
+              Senha
+            </label>
+            <input
+              id="senha"
+              name="senha"
+              type="password"
+              autocomplete="current-password"
+              required
+              class="login-input login-input-last"
+              placeholder="Senha"
+            />
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          class="login-button"
+        >
+          Entrar
+        </button>
+        
+        <div class="login-footer">
+          <p>Entre em contato com o administrador caso não tenha acesso</p>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

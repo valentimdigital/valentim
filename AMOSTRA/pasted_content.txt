@@ -1,0 +1,154 @@
+
+Objetivo do Sistema:
+Criar um painel de vendas para gerenciar clientes empresariais, com um bot de conversação para consultar informações de clientes, integração com a API da Receita Federal para validar e atualizar os dados, e um banco de dados local (SQLite) para armazenar e gerenciar as informações dos clientes. O sistema deve permitir que a equipe de vendas interaja facilmente com os dados, atualize informações, consulte o status dos clientes de forma prática e utilize um filtro de pesquisa para facilitar a busca de clientes.
+
+Funcionalidades do Sistema:
+
+1. Funcionalidade Principal:
+- O sistema deve permitir a entrada de CNPJ ou CEP para consultar as informações de empresas usando a API da Receita Federal.
+- Quando um CNPJ ou CEP for informado, o bot consulta a API e retorna as informações completas da empresa, incluindo:
+  - Nome Empresarial
+  - CNPJ
+  - Data de Abertura
+  - Atividades Econômicas
+  - Natureza Jurídica
+  - Endereço Completo
+  - Telefone
+  - E-mail
+  - Capital Social
+  - Simples Nacional e MEI
+  - Situação Cadastral (Ativa ou Inapta)
+
+- Adição e Edição de Dados:
+  - As informações vindas da API devem ser armazenadas ou atualizadas no banco de dados local SQLite.
+  - As informações podem ser editadas manualmente pela equipe de vendas, incluindo:
+    - Limite de Crédito
+    - Dívidas com a TIM
+    - Etapa da Venda (Ex: Em Andamento, Fechado)
+    - Status (Ex: Ativo, Inativo)
+    - Responsável pelo Atendimento
+    - Data de Atualização
+
+2. Visualização e Sistema de Cores:
+- No painel de vendas, cada cliente será representado por um card colorido, com as cores representando o status do cliente e a categoria do CNPJ:
+
+Sistema de Cores para Cada Tipo de Empresa:
+- Microempreendedor Individual (MEI):
+  - Azul Claro: MEI com limite de crédito.
+  - Azul Escuro: MEI sem limite de crédito.
+
+- Empresário Individual (EI):
+  - Verde Claro: Empresário Individual com limite de crédito.
+  - Verde Escuro: Empresário Individual sem limite de crédito.
+
+- Sociedade Limitada (LTDA):
+  - Verde Claro: LTDA com limite de crédito.
+  - Verde Escuro: LTDA sem limite de crédito.
+  - Marrom: LTDA com dívida.
+  - Amarelo: LTDA com menos de 6 meses de existência.
+
+- Sociedade Limitada Unipessoal (SLU):
+  - Verde Claro: SLU com limite de crédito.
+  - Verde Escuro: SLU sem limite de crédito.
+  - Marrom: SLU com dívida.
+  - Amarelo: SLU com menos de 6 meses de existência.
+
+- Sociedade Simples (SS):
+  - Cinza Claro: SS com limite de crédito.
+  - Cinza Escuro: SS sem limite de crédito.
+
+- Sociedade Anônima (SA):
+  - Roxo Claro: SA com limite de crédito.
+  - Roxo Escuro: SA sem limite de crédito.
+
+- Situação Especial:
+  - Vermelho Claro: Inapta.
+  - Vermelho Escuro: Com dívida com a TIM.
+
+Aba fixa no topo do índice: Uma aba de fácil acesso ficará fixa no topo da tela, mostrando a cor do status do cliente para facilitar a visualização rápida.
+
+3. Permissões de Acesso:
+- O sistema deve ter diferentes permissões de acesso com base no cargo de cada usuário:
+  - Valentim (Dono): Acesso total a todas as funções.
+  - Tayna (Supervisor): Acesso total, como o dono.
+  - Wellington: Acesso total, igual ao dono.
+  - Larissa, Livia, Ana: Acesso para visualizar e editar dados dos clientes.
+  - Lene: Apenas pode adicionar clientes, sem permissão para editar.
+
+4. Bot de Conversação:
+- O bot deve ser simples e responsivo, apenas respondendo às consultas enviadas. O bot deve:
+  - Responder ao CNPJ ou CEP informado com as informações mais atualizadas da empresa.
+  - Consultar a API da Receita Federal para obter os dados.
+  - Atualizar o banco de dados com as informações recebidas da API, ou adicionar novos dados se o cliente não existir.
+  - Exibir informações organizadas para o usuário.
+
+5. Funcionalidade de Filtro de Pesquisa:
+- O painel de vendas deve incluir um campo de pesquisa com filtros para facilitar a busca e organização dos clientes.
+  - Filtros principais:
+    - Nome da Empresa
+    - CNPJ
+    - Status da Empresa (Ativa/Inapta)
+    - Tipo de Empresa (MEI, EI, LTDA, SLU, SS, SA)
+    - Limite de Crédito (Sim/Não)
+    - Dívidas com a TIM (Sim/Não)
+    - Etapa da Venda (Em Andamento/Fechado)
+    - Responsável (Larissa, Livia, etc.)
+
+- Ações no filtro:
+  - Pesquisar: O filtro deve permitir ao usuário buscar por um conjunto de critérios, exibindo os resultados que correspondem a esses filtros.
+  - Visualização: O painel de clientes deve se atualizar automaticamente conforme o filtro é ajustado, exibindo apenas os clientes que atendem aos critérios de pesquisa.
+
+6. Banco de Dados (SQLite):
+- O banco de dados deve armazenar as informações dos clientes e permitir as seguintes ações:
+  - Inserção: Adicionar um novo cliente ao banco de dados com as informações coletadas pela API.
+  - Atualização: Atualizar os dados de um cliente existente com as novas informações da API.
+  - Consulta: Verificar se o cliente já existe no banco de dados e exibir as informações quando solicitado.
+
+- Estrutura do Banco de Dados:
+  - Tabela de Clientes:
+    - ID (chave primária)
+    - CNPJ
+    - Nome Empresarial
+    - Data de Abertura
+    - Atividades Econômicas
+    - Natureza Jurídica
+    - Endereço
+    - Telefone
+    - E-mail
+    - Capital Social
+    - Simples Nacional
+    - MEI
+    - Situação Cadastral
+    - Limite de Crédito
+    - Dívidas com a TIM
+    - Etapa da Venda
+    - Responsável
+    - Data de Atualização
+
+7. Funcionalidade do Bot:
+- O bot será executado via prompt de comando com um script que, ao ser executado (por exemplo, via npm run bot), irá:
+  - Esperar um comando (CNPJ ou CEP).
+  - Validar a entrada e fazer a consulta à API da Receita Federal.
+  - Retornar as informações do cliente combinando dados da API e informações inseridas manualmente no banco de dados.
+
+- Exemplo de código para consulta à API (Node.js):
+const axios = require('axios');
+
+// Função para consultar a API da Receita Federal
+async function consultarCNPJ(cnpj) {
+  try {
+    const response = await axios.get(`https://www.receitaws.com.br/v1/cnpj/${cnpj}`);
+    const dadosAPI = response.data;
+    // Atualizar ou adicionar os dados no banco de dados
+    // Exibir os dados
+    console.log(dadosAPI);
+  } catch (error) {
+    console.error('Erro na consulta:', error);
+  }
+}
+
+// Exemplo de uso
+consultarCNPJ('53.281.011/0001-53');
+
+Conclusão:
+Esse projeto permitirá que você crie um sistema funcional de consulta e gerenciamento de clientes empresariais, utilizando informações da API da Receita Federal, com a possibilidade de atualizar, editar e visualizar os dados de maneira eficiente. O bot de conversação ajudará a facilitar as interações e manterá as informações sempre atualizadas. O filtro de pesquisa será fundamental para que os vendedores possam encontrar rapidamente as informações que precisam, e o sistema de cores ajudará na visualização rápida de informações cruciais de cada cliente.

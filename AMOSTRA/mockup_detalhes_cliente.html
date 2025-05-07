@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Vendas TIM - Detalhes do Cliente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide-icons@latest/dist/umd/lucide.min.js" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --tim-blue: #00348D;
+      --tim-red: #E40613;
+      --tim-light-blue: #E6F0FF;
+      --tim-light-red: #FFE6E8;
+      --tim-light-green: #E6F9F0;
+      --tim-light-yellow: #FFF8E6;
+      --tim-light-purple: #F0E6FF;
+      --tim-light-gray: #F0F0F0;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    
+    .header {
+      background-color: var(--tim-blue);
+      color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .page-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--tim-blue);
+    }
+    
+    .page-subtitle {
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+    
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .btn-primary {
+      background-color: var(--tim-blue);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background-color: var(--tim-red);
+      color: white;
+    }
+    
+    .btn-outline {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+    }
+    
+    .card-header {
+      padding: 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+      background-color: var(--tim-light-blue);
+    }
+    
+    .card-body {
+      padding: 1.5rem;
+    }
+    
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    
+    .info-group {
+      margin-bottom: 1rem;
+    }
+    
+    .info-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-value {
+      font-size: 1rem;
+      color: #111827;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .badge-blue {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+    
+    .badge-green {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+    
+    .badge-yellow {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+    
+    .badge-red {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
+      margin-bottom: 1.5rem;
+    }
+    
+    .tab {
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      color: #6b7280;
+      cursor: pointer;
+    }
+    
+    .tab-active {
+      color: var(--tim-blue);
+      border-bottom: 2px solid var(--tim-blue);
+    }
+    
+    .timeline {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 2px;
+      background-color: #e5e7eb;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-bottom: 1.5rem;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.5rem;
+      top: 0.25rem;
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 9999px;
+      background-color: var(--tim-blue);
+    }
+    
+    .timeline-date {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+    
+    .timeline-title {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: #111827;
+      margin-bottom: 0.25rem;
+    }
+    
+    .timeline-description {
+      font-size: 0.875rem;
+      color: #4b5563;
+    }
+    
+    .footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      text-align: center;
+      color: #6b7280;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center;">
+          <img src="https://www.tim.com.br/images/logo-tim.svg" alt="TIM Logo" style="height: 2rem; margin-right: 0.75rem;">
+          <h1 style="font-size: 1.25rem; font-weight: 700;">Painel de Vendas</h1>
+        </div>
+        <div style="font-size: 0.875rem;">
+          <span style="opacity: 0.8;">Olá, João Silva</span>
+        </div>
+      </div>
+    </header>
+    
+    <div class="page-header">
+      <div>
+        <h2 class="page-title">Detalhes do Cliente</h2>
+        <p class="page-subtitle">
+          Visualizando informações completas do cliente
+        </p>
+      </div>
+      
+      <div style="display: flex; gap: 0.75rem;">
+        <button class="btn btn-outline">
+          <i data-lucide="arrow-left" style="width: 1rem; height: 1rem;"></i>
+          <span>Voltar</span>
+        </button>
+        
+        <button class="btn btn-primary">
+          <i data-lucide="edit" style="width: 1rem; height: 1rem;"></i>
+          <span>Editar</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="card">
+      <div class="card-header">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+          <div>
+            <h3 style="font-size: 1.5rem; font-weight: 700;">Empresa Exemplo LTDA</h3>
+            <p style="font-size: 1rem; margin-top: 0.25rem;">23.456.789/0001-01</p>
+          </div>
+          
+          <div style="display: flex; gap: 0.5rem;">
+            <div class="badge badge-green">
+              <i data-lucide="check-circle" style="width: 0.75rem; height: 0.75rem; margin-right: 0.25rem;"></i>
+              Ativa
+            </div>
+            
+            <div class="badge badge-blue">
+              <i data-lucide="building" style="width: 0.75rem; height: 0.75rem; margin-right: 0.25rem;"></i>
+              LTDA
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-body">
+        <div class="tabs">
+          <div class="tab tab-active">Informações Gerais</div>
+          <div class="tab">Histórico</div>
+          <div class="tab">Documentos</div>
+        </div>
+        
+        <div class="grid-2">
+          <div>
+            <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--tim-blue);">Dados Cadastrais</h4>
+            
+            <div class="grid-2">
+              <div class="info-group">
+                <div class="info-label">Nome Empresarial</div>
+                <div class="info-value">Empresa Exemplo LTDA</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Nome Fantasia</div>
+                <div class="info-value">Exemplo LTDA</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">CNPJ</div>
+                <div class="info-value">23.456.789/0001-01</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Data de Abertura</div>
+                <div class="info-value">01/01/2018</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Situação Cadastral</div>
+                <div class="info-value">Ativa</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Tipo de Empresa</div>
+                <div class="info-value">LTDA</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Capital Social</div>
+                <div class="info-value">R$ 100.000,00</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Porte</div>
+                <div class="info-value">Médio</div>
+              </div>
+            </div>
+            
+            <h4 style="font-size: 1.125rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: var(--tim-blue);">Endereço</h4>
+            
+            <div class="info-group">
+              <div class="info-label">Logradouro</div>
+              <div class="info-value">Avenida Paulista, 1000</div>
+            </div>
+            
+            <div class="grid-3">
+              <div class="info-group">
+                <div class="info-label">Bairro</div>
+                <div class="info-value">Bela Vista</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Cidade</div>
+                <div class="info-value">São Paulo</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">UF</div>
+                <div class="info-value">SP</div>
+              </div>
+            </div>
+            
+            <div class="info-group">
+              <div class="info-label">CEP</div>
+              <div class="info-value">01310-100</div>
+            </div>
+          </div>
+          
+          <div>
+            <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--tim-blue);">Informações de Contato</h4>
+            
+            <div class="info-group">
+              <div class="info-label">Telefone Principal</div>
+              <div class="info-value">(11) 3456-7890</div>
+            </div>
+            
+            <div class="info-group">
+              <div class="info-label">Email</div>
+              <div class="info-value">contato@empresaexemplo.com.br</div>
+            </div>
+            
+            <div class="info-group">
+              <div class="info-label">Site</div>
+              <div class="info-value">www.empresaexemplo.com.br</div>
+            </div>
+            
+            <h4 style="font-size: 1.125rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: var(--tim-blue);">Informações Financeiras</h4>
+            
+            <div class="grid-2">
+              <div class="info-group">
+                <div class="info-label">Limite de Crédito</div>
+                <div class="info-value">Sim</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Valor do Limite</div>
+                <div class="info-value">R$ 50.000,00</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Dívidas com a TIM</div>
+                <div class="info-value">Não</div>
+              </div>
+            </div>
+            
+            <h4 style="font-size: 1.125rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: var(--tim-blue);">Informações de Venda</h4>
+            
+            <div class="grid-2">
+              <div class="info-group">
+                <div class="info-label">Responsável</div>
+                <div class="info-value">Maria Oliveira</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Etapa da Venda</div>
+                <div class="info-value">Fechado</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Data de Início</div>
+                <div class="info-value">15/03/2025</div>
+              </div>
+              
+              <div class="info-group">
+                <div class="info-label">Data de Fechamento</div>
+                <div class="info-value">10/04/2025</div>
+              </div>
+            </div>
+            
+            <h4 style="font-size: 1.125rem; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; color: var(--tim-blue);">Histórico Recente</h4>
+            
+            <div class="timeline">
+              <div class="timeline-item">
+                <div class="timeline-date">10/04/2025</div>
+                <div class="timeline-title">Venda Fechada</div>
+                <div class="timeline-description">Contrato assinado e aprovado.</div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-date">05/04/2025</div>
+                <div class="timeline-title">Proposta Enviada</div>
+                <div class="timeline-description">Proposta comercial enviada para análise do cliente.</div>
+              </div>
+              
+              <div class="timeline-item">
+                <div class="timeline-date">25/03/2025</div>
+                <div class="timeline-title">Reunião Presencial</div>
+                <div class="timeline-description">Apresentação de produtos e serviços.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <footer class="footer">
+      <p>© 2025 TIM Brasil - Painel de Vendas</p>
+    </footer>
+  </div>
+  
+  <script>
+    // Inicializar ícones Lucide
+    lucide.createIcons();
+  </script>
+</body>
+</html>

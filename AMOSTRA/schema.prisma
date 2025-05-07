@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id             Int                  @id @default(autoincrement())
+  nome           String
+  email          String               @unique
+  senha          String
+  cargo          String
+  nivelAcesso    String // total, parcial, limitado
+  dataCriacao    DateTime             @default(now())
+  ultimoAcesso   DateTime?
+  clientes       Cliente[]            @relation("ResponsavelCliente")
+  consultas      HistoricoConsulta[]
+  atualizacoes   HistoricoAtualizacao[]
+
+  @@map("usuarios")
+}
+
+model Cliente {
+  id                  Int                  @id @default(autoincrement())
+  cnpj                String               @unique
+  nomeEmpresarial     String
+  dataAbertura        DateTime?
+  atividadesEconomicas String?
+  naturezaJuridica    String?
+  tipoEmpresa         String // MEI, EI, LTDA, SLU, SS, SA
+  endereco            String?
+  cep                 String?
+  telefone            String?
+  email               String?
+  capitalSocial       Float?
+  simplesNacional     Boolean?
+  mei                 Boolean?
+  situacaoCadastral   String?
+  limiteCredito       Boolean              @default(false)
+  valorLimiteCredito  Float                @default(0)
+  dividasTim          Boolean              @default(false)
+  valorDividasTim     Float                @default(0)
+  etapaVenda          String               @default("Em Andamento") // Em Andamento, Fechado
+  status              String               @default("Ativo") // Ativo, Inativo
+  responsavelId       Int?
+  responsavel         Usuario?             @relation("ResponsavelCliente", fields: [responsavelId], references: [id])
+  dataCriacao         DateTime             @default(now())
+  dataAtualizacao     DateTime             @default(now()) @updatedAt
+  consultas           HistoricoConsulta[]
+  atualizacoes        HistoricoAtualizacao[]
+
+  @@map("clientes")
+  @@index([cnpj])
+  @@index([nomeEmpresarial])
+  @@index([tipoEmpresa])
+  @@index([status])
+  @@index([responsavelId])
+  @@index([etapaVenda])
+}
+
+model HistoricoConsulta {
+  id              Int       @id @default(autoincrement())
+  clienteId       Int?
+  cliente         Cliente?  @relation(fields: [clienteId], references: [id])
+  usuarioId       Int?
+  usuario         Usuario?  @relation(fields: [usuarioId], references: [id])
+  tipoConsulta    String    // CNPJ, CEP
+  valorConsultado String
+  dataConsulta    DateTime  @default(now())
+
+  @@map("historico_consultas")
+}
+
+model HistoricoAtualizacao {
+  id              Int       @id @default(autoincrement())
+  clienteId       Int
+  cliente         Cliente   @relation(fields: [clienteId], references: [id])
+  usuarioId       Int
+  usuario         Usuario   @relation(fields: [usuarioId], references: [id])
+  campoAlterado   String
+  valorAnterior   String?
+  valorNovo       String?
+  dataAlteracao   DateTime  @default(now())
+
+  @@map("historico_atualizacoes")
+}

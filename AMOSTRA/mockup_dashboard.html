@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Vendas TIM - Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide-icons@latest/dist/umd/lucide.min.js" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --tim-blue: #00348D;
+      --tim-red: #E40613;
+      --tim-light-blue: #E6F0FF;
+      --tim-light-red: #FFE6E8;
+      --tim-light-green: #E6F9F0;
+      --tim-light-yellow: #FFF8E6;
+      --tim-light-purple: #F0E6FF;
+      --tim-light-gray: #F0F0F0;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    
+    .header {
+      background-color: var(--tim-blue);
+      color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+    
+    .dashboard-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+    
+    .dashboard-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--tim-blue);
+    }
+    
+    .dashboard-subtitle {
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+    
+    .dashboard-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .btn {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+      font-weight: 500;
+      cursor: pointer;
+    }
+    
+    .btn-primary {
+      background-color: var(--tim-blue);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background-color: var(--tim-red);
+      color: white;
+    }
+    
+    .btn-outline {
+      background-color: #f3f4f6;
+      color: #4b5563;
+    }
+    
+    .filter-container {
+      background-color: white;
+      border-radius: 0.5rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .filter-row {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    
+    .filter-input {
+      flex: 1;
+      position: relative;
+    }
+    
+    .filter-input input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+    }
+    
+    .filter-input svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 0.75rem;
+      color: #9ca3af;
+    }
+    
+    .filter-expanded {
+      background-color: var(--tim-light-blue);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-top: 1rem;
+    }
+    
+    .filter-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    
+    .filter-field {
+      margin-bottom: 0.5rem;
+    }
+    
+    .filter-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 0.25rem;
+      color: #4b5563;
+    }
+    
+    .filter-select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+    }
+    
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 3fr 1fr;
+      gap: 1.5rem;
+    }
+    
+    .dashboard-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    
+    .card {
+      background-color: white;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+    
+    .card-header {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+      cursor: pointer;
+    }
+    
+    .card-body {
+      padding: 1rem;
+    }
+    
+    .card-mei-com-limite {
+      border-left: 4px solid #93c5fd;
+      background-color: #eff6ff;
+    }
+    
+    .card-ltda-com-limite {
+      border-left: 4px solid #86efac;
+      background-color: #f0fdf4;
+    }
+    
+    .card-divida-tim {
+      border-left: 4px solid #fca5a5;
+      background-color: #fee2e2;
+    }
+    
+    .card-inapta {
+      border-left: 4px solid #f87171;
+      background-color: #fef2f2;
+    }
+    
+    .chat-container {
+      background-color: white;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .chat-header {
+      background-color: var(--tim-blue);
+      color: white;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      max-height: 400px;
+    }
+    
+    .chat-message {
+      max-width: 80%;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+    }
+    
+    .chat-message-bot {
+      background-color: var(--tim-light-blue);
+      align-self: flex-start;
+    }
+    
+    .chat-message-user {
+      background-color: var(--tim-blue);
+      color: white;
+      align-self: flex-end;
+    }
+    
+    .chat-input {
+      padding: 0.75rem;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+    }
+    
+    .chat-input input {
+      flex: 1;
+      padding: 0.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem 0 0 0.5rem;
+    }
+    
+    .chat-input button {
+      background-color: var(--tim-blue);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .badge-red {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    .badge-blue {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+    
+    .badge-green {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+    
+    .footer {
+      margin-top: 3rem;
+      padding: 1rem;
+      text-align: center;
+      color: #6b7280;
+      border-top: 1px solid #e5e7eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <header class="header">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center;">
+          <img src="https://www.tim.com.br/images/logo-tim.svg" alt="TIM Logo" style="height: 2rem; margin-right: 0.75rem;">
+          <h1 style="font-size: 1.25rem; font-weight: 700;">Painel de Vendas</h1>
+        </div>
+        <div style="font-size: 0.875rem;">
+          <span style="opacity: 0.8;">Olá, João Silva</span>
+        </div>
+      </div>
+    </header>
+    
+    <div class="dashboard-header">
+      <div>
+        <h2 class="dashboard-title">Gerenciamento de Clientes</h2>
+        <p class="dashboard-subtitle">
+          Você tem acesso total ao sistema
+        </p>
+      </div>
+      
+      <div class="dashboard-actions">
+        <button class="btn btn-outline">
+          <i data-lucide="refresh-cw" style="width: 1rem; height: 1rem;"></i>
+          <span>Atualizar</span>
+        </button>
+        
+        <button class="btn btn-primary">
+          <i data-lucide="plus" style="width: 1rem; height: 1rem;"></i>
+          <span>Novo Cliente</span>
+        </button>
+        
+        <button class="btn btn-primary">
+          <span>Abrir Bot</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="filter-container">
+      <div class="filter-row">
+        <div class="filter-input">
+          <i data-lucide="search" style="width: 1rem; height: 1rem;"></i>
+          <input type="text" placeholder="Buscar por nome ou CNPJ...">
+        </div>
+        
+        <button class="btn btn-outline">
+          <i data-lucide="filter" style="width: 1rem; height: 1rem;"></i>
+          <span>Filtros</span>
+        </button>
+        
+        <button class="btn btn-primary">
+          Buscar
+        </button>
+      </div>
+      
+      <div class="filter-expanded">
+        <div class="filter-grid">
+          <div class="filter-field">
+            <label class="filter-label">Tipo de Empresa</label>
+            <select class="filter-select">
+              <option value="">Todos</option>
+              <option value="MEI">MEI</option>
+              <option value="EI">EI</option>
+              <option value="LTDA">LTDA</option>
+              <option value="SLU">SLU</option>
+              <option value="SS">SS</option>
+              <option value="SA">SA</option>
+            </select>
+          </div>
+          
+          <div class="filter-field">
+            <label class="filter-label">Situação Cadastral</label>
+            <select class="filter-select">
+              <option value="">Todos</option>
+              <option value="Ativa">Ativa</option>
+              <option value="Inapta">Inapta</option>
+            </select>
+          </div>
+          
+          <div class="filter-field">
+            <label class="filter-label">Limite de Crédito</label>
+            <select class="filter-select">
+              <option value="">Todos</option>
+              <option value="true">Com Limite</option>
+              <option value="false">Sem Limite</option>
+            </select>
+          </div>
+          
+          <div class="filter-field">
+            <label class="filter-label">Dívidas com a TIM</label>
+            <select class="filter-select">
+              <option value="">Todos</option>
+              <option value="true">Com Dívida</option>
+              <option value="false">Sem Dívida</option>
+            </select>
+          </div>
+          
+          <div class="filter-field">
+            <label class="filter-label">Etapa da Venda</label>
+            <select class="filter-select">
+              <option value="">Todos</option>
+              <option value="Em Andamento">Em Andamento</option>
+              <option value="Fechado">Fechado</option>
+            </select>
+          </div>
+          
+          <div class="filter-field">
+            <label class="filter-label">Responsável</label>
+            <select class="filter-select">
+              <option value="">Todos</option>
+              <option value="1">João Silva</option>
+              <option value="2">Maria Oliveira</option>
+              <option value="3">Carlos Santos</option>
+            </select>
+          </div>
+        </div>
+        
+        <div style="display: flex; justify-content: flex-end; margin-top: 1rem;">
+          <button class="btn btn-outline" style="color: var(--tim-blue);">
+            <i data-lucide="x" style="width: 1rem; height: 1rem;"></i>
+            <span>Limpar Filtros</span>
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="dashboard-grid">
+      <div>
+        <div class="dashboard-cards">
+          <!-- Card MEI com limite -->
+          <div class="card card-mei-com-limite">
+            <div class="card-header">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <h3 style="font-weight: 700; font-size: 1.125rem;">Empresa Exemplo MEI</h3>
+                  <p style="font-size: 0.875rem;">12.345.678/0001-90</p>
+                </div>
+              </div>
+              
+              <div style="margin-top: 0.5rem; font-size: 0.875rem;">
+                <p><strong>Tipo:</strong> MEI</p>
+                <p><strong>Responsável:</strong> João Silva</p>
+                <p><strong>Etapa:</strong> Em Andamento</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card LTDA com limite -->
+          <div class="card card-ltda-com-limite">
+            <div class="card-header">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <h3 style="font-weight: 700; font-size: 1.125rem;">Empresa Exemplo LTDA</h3>
+                  <p style="font-size: 0.875rem;">23.456.789/0001-01</p>
+                </div>
+              </div>
+              
+              <div style="margin-top: 0.5rem; font-size: 0.875rem;">
+                <p><strong>Tipo:</strong> LTDA</p>
+                <p><strong>Responsável:</strong> Maria Oliveira</p>
+                <p><strong>Etapa:</strong> Fechado</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card com dívida -->
+          <div class="card card-divida-tim">
+            <div class="card-header">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <h3 style="font-weight: 700; font-size: 1.125rem;">Empresa Com Dívida</h3>
+                  <p style="font-size: 0.875rem;">34.567.890/0001-12</p>
+                </div>
+                
+                <div class="badge badge-red" style="display: flex; align-items: center;">
+                  <i data-lucide="alert-triangle" style="width: 0.75rem; height: 0.75rem; margin-right: 0.25rem;"></i>
+                  Dívida
+                </div>
+              </div>
+              
+              <div style="margin-top: 0.5rem; font-size: 0.875rem;">
+                <p><strong>Tipo:</strong> LTDA</p>
+                <p><strong>Responsável:</strong> Carlos Santos</p>
+                <p><strong>Etapa:</strong> Em Andamento</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Card inapta -->
+          <div class="card card-inapta">
+            <div class="card-header">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start;">
+                <div>
+                  <h3 style="font-weight: 700; font-size: 1.125rem;">Empresa Inapta</h3>
+                  <p style="font-size: 0.875rem;">45.678.901/0001-23</p>
+                </div>
+                
+                <div class="badge badge-red" style="display: flex; align-items: center;">
+                  <i data-lucide="alert-triangle" style="width: 0.75rem; height: 0.75rem; margin-right: 0.25rem;"></i>
+                  Inapta
+                </div>
+              </div>
+              
+              <div style="margin-top: 0.5rem; font-size: 0.875rem;">
+                <p><strong>Tipo:</strong> SA</p>
+                <p><strong>Responsável:</strong> João Silva</p>
+                <p><strong>Etapa:</strong> Em Andamento</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div>
+        <div class="chat-container">
+          <div class="chat-header">
+            <i data-lucide="bot" style="width: 1.25rem; height: 1.25rem; margin-right: 0.5rem;"></i>
+            <h3 style="font-weight: 500;">Assistente TIM</h3>
+          </div>
+          
+          <div class="chat-messages">
+            <div class="chat-message chat-message-bot">
+              <div style="display: flex; align-items: center; margin-bottom: 0.25rem;">
+                <i data-lucide="bot" style="width: 1rem; height: 1rem; margin-right: 0.25rem;"></i>
+                <span style="font-size: 0.75rem; opacity: 0.75;">14:30</span>
+              </div>
+              <div style="font-size: 0.875rem;">Olá! Sou o assistente virtual da TIM. Posso ajudar com consultas de CNPJ ou CEP. O que você precisa hoje?</div>
+            </div>
+            
+            <div class="chat-message chat-message-user">
+              <div style="display: flex; align-items: center; margin-bottom: 0.25rem; justify-content: flex-end;">
+                <span style="font-size: 0.75rem; opacity: 0.75;">14:31</span>
+                <i data-lucide="user" style="width: 1rem; height: 1rem; margin-left: 0.25rem;"></i>
+              </div>
+              <div style="font-size: 0.875rem;">Consulte o CNPJ 12.345.678/00
+(Content truncated due to size limit. Use line ranges to read in chunks)

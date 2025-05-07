@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel de Vendas TIM - Atendimento WhatsApp</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/lucide-icons@latest/dist/umd/lucide.min.js" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    :root {
+      --tim-blue: #00348D;
+      --tim-red: #E40613;
+      --tim-light-blue: #E6F0FF;
+      --tim-light-red: #FFE6E8;
+      --tim-light-green: #E6F9F0;
+      --tim-light-yellow: #FFF8E6;
+      --tim-light-purple: #F0E6FF;
+      --tim-light-gray: #F5F5F5;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f5f5f5;
+      color: #333;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .header {
+      background-color: var(--tim-blue);
+      color: white;
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .container {
+      display: flex;
+      height: calc(100vh - 3.5rem);
+    }
+    
+    .sidebar {
+      width: 300px;
+      background-color: white;
+      border-right: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background-color: #f5f5f5;
+    }
+    
+    .info-panel {
+      width: 300px;
+      background-color: white;
+      border-left: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .search-bar {
+      padding: 0.75rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .search-input {
+      width: 100%;
+      padding: 0.5rem 1rem 0.5rem 2.5rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.5rem;
+      position: relative;
+      background-color: #f9fafb;
+    }
+    
+    .search-icon {
+      position: absolute;
+      left: 1.25rem;
+      top: 1.25rem;
+      color: #9ca3af;
+    }
+    
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .tab {
+      flex: 1;
+      padding: 0.75rem;
+      text-align: center;
+      font-weight: 500;
+      color: #6b7280;
+      cursor: pointer;
+    }
+    
+    .tab-active {
+      color: var(--tim-blue);
+      border-bottom: 2px solid var(--tim-blue);
+    }
+    
+    .contact-list {
+      flex: 1;
+      overflow-y: auto;
+    }
+    
+    .contact-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid #f3f4f6;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .contact-item:hover {
+      background-color: #f9fafb;
+    }
+    
+    .contact-item-active {
+      background-color: var(--tim-light-blue);
+    }
+    
+    .contact-avatar {
+      width: 3rem;
+      height: 3rem;
+      border-radius: 50%;
+      background-color: #e5e7eb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 0.75rem;
+      position: relative;
+    }
+    
+    .contact-avatar img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    
+    .contact-status {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 50%;
+      background-color: #10b981;
+      border: 2px solid white;
+    }
+    
+    .contact-info {
+      flex: 1;
+      min-width: 0;
+    }
+    
+    .contact-name {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .contact-preview {
+      font-size: 0.875rem;
+      color: #6b7280;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    
+    .contact-meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-left: 0.5rem;
+    }
+    
+    .contact-time {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+    
+    .contact-badge {
+      background-color: var(--tim-blue);
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 0.125rem 0.375rem;
+      border-radius: 9999px;
+    }
+    
+    .chat-header {
+      padding: 0.75rem 1rem;
+      background-color: white;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+    }
+    
+    .chat-title {
+      flex: 1;
+      margin-left: 0.75rem;
+    }
+    
+    .chat-name {
+      font-weight: 600;
+      margin-bottom: 0.125rem;
+    }
+    
+    .chat-subtitle {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    
+    .chat-actions {
+      display: flex;
+      gap: 0.75rem;
+    }
+    
+    .chat-action {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      cursor: pointer;
+    }
+    
+    .chat-action:hover {
+      background-color: #f3f4f6;
+    }
+    
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .message {
+      max-width: 70%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .message-incoming {
+      align-self: flex-start;
+    }
+    
+    .message-outgoing {
+      align-self: flex-end;
+    }
+    
+    .message-content {
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      position: relative;
+    }
+    
+    .message-incoming .message-content {
+      background-color: white;
+      border-top-left-radius: 0;
+    }
+    
+    .message-outgoing .message-content {
+      background-color: var(--tim-light-blue);
+      border-top-right-radius: 0;
+    }
+    
+    .message-bot .message-content {
+      background-color: #f3f4f6;
+      border-top-left-radius: 0.5rem;
+      border-top-right-radius: 0.5rem;
+    }
+    
+    .message-time {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+      align-self: flex-end;
+    }
+    
+    .chat-input-container {
+      padding: 0.75rem;
+      background-color: white;
+      border-top: 1px solid #e5e7eb;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .chat-input-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .chat-input-action {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #6b7280;
+      cursor: pointer;
+    }
+    
+    .chat-input-action:hover {
+      background-color: #f3f4f6;
+    }
+    
+    .chat-input {
+      flex: 1;
+      padding: 0.75rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 1.5rem;
+      background-color: #f9fafb;
+    }
+    
+    .chat-send {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--tim-blue);
+      color: white;
+      cursor: pointer;
+    }
+    
+    .info-header {
+      padding: 0.75rem 1rem;
+      background-color: var(--tim-blue);
+      color: white;
+      font-weight: 600;
+    }
+    
+    .info-tabs {
+      display: flex;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    
+    .info-tab {
+      flex: 1;
+      padding: 0.75rem;
+      text-align: center;
+      font-weight: 500;
+      color: #6b7280;
+      cursor: pointer;
+    }
+    
+    .info-tab-active {
+      color: var(--tim-blue);
+      border-bottom: 2px solid var(--tim-blue);
+    }
+    
+    .info-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem;
+    }
+    
+    .info-section {
+      margin-bottom: 1.5rem;
+    }
+    
+    .info-section-title {
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+      color: var(--tim-blue);
+      font-size: 0.875rem;
+      text-transform: uppercase;
+    }
+    
+    .info-stats {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .info-stat {
+      flex: 1;
+      background-color: #f9fafb;
+      border-radius: 0.5rem;
+      padding: 0.75rem;
+      text-align: center;
+    }
+    
+    .info-stat-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--tim-blue);
+    }
+    
+    .info-stat-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 0.25rem;
+    }
+    
+    .info-field {
+      margin-bottom: 0.75rem;
+    }
+    
+    .info-field-label {
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+    
+    .info-field-value {
+      font-size: 0.875rem;
+    }
+    
+    .info-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    
+    .info-action {
+      padding: 0.5rem;
+      border-radius: 0.25rem;
+      background-color: #f3f4f6;
+      color: #374151;
+      font-size: 0.875rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    
+    .info-action:hover {
+      background-color: #e5e7eb;
+    }
+    
+    .info-action-primary {
+      background-color: var(--tim-blue);
+      color: white;
+    }
+    
+    .info-action-primary:hover {
+      background-color: #002d7a;
+    }
+    
+    .info-action-danger {
+      background-color: var(--tim-red);
+      color: white;
+    }
+    
+    .info-action-danger:hover {
+      background-color: #c30511;
+    }
+    
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    .badge-blue {
+      background-color: #dbeafe;
+      color: #1e40af;
+    }
+    
+    .badge-green {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+    
+    .badge-yellow {
+      background-color: #fef3c7;
+      color: #92400e;
+    }
+    
+    .badge-red {
+      background-color: #fee2e2;
+      color: #b91c1c;
+    }
+    
+    .border-left-blue {
+      border-left: 4px solid #3b82f6;
+    }
+    
+    .border-left-green {
+      border-left: 4px solid #10b981;
+    }
+    
+    .border-left-yellow {
+      border-left: 4px solid #f59e0b;
+    }
+    
+    .border-left-red {
+      border-left: 4px solid #ef4444;
+    }
+    
+    @media (max-width: 1024px) {
+      .info-panel {
+        display: none;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="flex items-center">
+      <img src="https://www.tim.com.br/images/logo-tim.svg" alt="TIM Logo" class="h-8 mr-3">
+      <h1 class="text-lg font-bold">Painel de Vendas - Atendimento</h1>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="text-sm opacity-80">Olá, João Silva</span>
+      <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center text-tim-blue font-bold">
+        JS
+      </div>
+    </div>
+  </header>
+  
+  <div class="container">
+    <!-- Sidebar - Lista de Conversas -->
+    <div class="sidebar">
+      <div class="search-bar relative">
+        <i data-lucide="search" class="search-icon w-4 h-4"></i>
+        <input type="text" class="search-input" placeholder="Buscar por nome ou número...">
+      </div>
+      
+      <div class="tabs">
+        <div class="tab tab-active">Ativos (3)</div>
+        <div class="tab">Pendentes (5)</div>
+        <div class="tab">Potenciais (2)</div>
+      </div>
+      
+      <div class="contact-list">
+        <!-- Contato Ativo -->
+        <div class="contact-item contact-item-active border-left-blue">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar">
+            <div class="contact-status"></div>
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Leonardo Silva</div>
+            <div class="contact-preview">Olá! Tenho interesse e queria mais informações, por favor.</div>
+          </div>
+          <div class="contact-meta">
+            <div class="contact-time">14:30</div>
+            <div class="contact-badge">2</div>
+          </div>
+        </div>
+        
+        <!-- Contato com Dívida -->
+        <div class="contact-item border-left-red">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Avatar">
+            <div class="contact-status"></div>
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Empresa Com Dívida LTDA</div>
+            <div class="contact-preview">Preciso de informações sobre como regularizar minha situação.</div>
+          </div>
+          <div class="contact-meta">
+            <div class="contact-time">13:45</div>
+          </div>
+        </div>
+        
+        <!-- Contato Potencial -->
+        <div class="contact-item border-left-green">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Avatar">
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Gabriel Mendes</div>
+            <div class="contact-preview">Quais planos vocês têm para MEI?</div>
+          </div>
+          <div class="contact-meta">
+            <div class="contact-time">11:20</div>
+          </div>
+        </div>
+        
+        <!-- Contato Pendente -->
+        <div class="contact-item border-left-yellow">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Avatar">
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Cassio Oliveira</div>
+            <div class="contact-preview">Preciso de maiores informações sobre os planos empresariais.</div>
+          </div>
+          <div class="contact-meta">
+            <div class="contact-time">10:15</div>
+            <div class="contact-badge">1</div>
+          </div>
+        </div>
+        
+        <!-- Mais contatos... -->
+        <div class="contact-item border-left-blue">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/men/42.jpg" alt="Avatar">
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Wesley Santos</div>
+            <div class="contact-preview">Obrigado pelo atendimento!</div>
+          </div>
+          <div class="contact-meta">
+            <div class="contact-time">Ontem</div>
+          </div>
+        </div>
+        
+        <div class="contact-item border-left-blue">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Avatar">
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Kaio Almeida</div>
+            <div class="contact-preview">Vou analisar a proposta e retorno em breve.</div>
+          </div>
+          <div class="contact-meta">
+            <div class="contact-time">Ontem</div>
+          </div>
+        </div>
+        
+        <div class="contact-item border-left-green">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Avatar">
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Luis Otávio</div>
+            <div class="contact-preview">Estou interessado no plano empresarial para minha startup.</div>
+          </div>
+          <div class="contact-meta">
+            <div class="contact-time">Seg</div>
+          </div>
+        </div>
+        
+        <div class="contact-item border-left-yellow">
+          <div class="contact-avatar">
+            <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Avatar">
+          </div>
+          <div class="contact-info">
+            <div class="contact-name">Marcelo Costa</div>
+            <div class="contact-preview">Quando poss
+(Content truncated due to size limit. Use line ranges to read in chunks)

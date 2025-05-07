@@ -1,0 +1,17 @@
+{
+  "name": "whatsapp-tim-mockup",
+  "version": "1.0.0",
+  "description": "Mockup da interface de atendimento via WhatsApp para o Painel de Vendas TIM",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "tim",
+    "whatsapp",
+    "atendimento",
+    "mockup"
+  ],
+  "author": "TIM Brasil",
+  "license": "MIT"
+}

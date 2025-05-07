@@ -1,0 +1,245 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --tim-blue: #00348D;
+  --tim-red: #E40613;
+  --tim-light-blue: #E6F0FF;
+  --tim-light-red: #FFE6E8;
+}
+
+body {
+  @apply bg-gray-50 text-gray-900;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Estilos do cabeçalho */
+.header {
+  @apply bg-tim-blue text-white shadow-md;
+}
+
+/* Estilos de botões */
+.btn-primary {
+  @apply bg-tim-blue text-white px-4 py-2 rounded-tim shadow-tim-button hover:bg-tim-dark-blue transition-colors duration-200;
+}
+
+.btn-secondary {
+  @apply bg-tim-red text-white px-4 py-2 rounded-tim shadow-tim-button hover:opacity-90 transition-colors duration-200;
+}
+
+.btn-outline {
+  @apply border border-tim-blue text-tim-blue px-4 py-2 rounded-tim hover:bg-tim-light-blue transition-colors duration-200;
+}
+
+/* Estilos de cards */
+.card {
+  @apply bg-white rounded-tim shadow-tim-card overflow-hidden border-l-4;
+}
+
+.card-header {
+  @apply p-4 border-b;
+}
+
+.card-body {
+  @apply p-4;
+}
+
+/* Estilos de formulários */
+.form-input {
+  @apply w-full p-2 border border-gray-300 rounded-tim focus:outline-none focus:ring-2 focus:ring-tim-blue;
+}
+
+.form-select {
+  @apply w-full p-2 border border-gray-300 rounded-tim focus:outline-none focus:ring-2 focus:ring-tim-blue;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+/* Estilos de navegação */
+.nav-link {
+  @apply text-white hover:text-tim-light-blue transition-colors duration-200;
+}
+
+.nav-link-active {
+  @apply text-white font-bold border-b-2 border-tim-red;
+}
+
+/* Estilos para o sistema de cores de cards de clientes */
+.card-mei-com-limite {
+  @apply border-l-4 border-blue-300 bg-blue-50;
+}
+
+.card-mei-sem-limite {
+  @apply border-l-4 border-blue-700 bg-blue-100 text-blue-900;
+}
+
+.card-ei-com-limite {
+  @apply border-l-4 border-green-300 bg-green-50;
+}
+
+.card-ei-sem-limite {
+  @apply border-l-4 border-green-700 bg-green-100 text-green-900;
+}
+
+.card-ltda-com-limite, .card-slu-com-limite {
+  @apply border-l-4 border-green-300 bg-green-50;
+}
+
+.card-ltda-sem-limite, .card-slu-sem-limite {
+  @apply border-l-4 border-green-700 bg-green-100 text-green-900;
+}
+
+.card-ltda-divida, .card-slu-divida {
+  @apply border-l-4 border-tim-amber bg-amber-50 text-amber-900;
+}
+
+.card-ltda-nova, .card-slu-nova {
+  @apply border-l-4 border-yellow-400 bg-yellow-50;
+}
+
+.card-ss-com-limite {
+  @apply border-l-4 border-gray-300 bg-gray-50;
+}
+
+.card-ss-sem-limite {
+  @apply border-l-4 border-gray-700 bg-gray-100 text-gray-900;
+}
+
+.card-sa-com-limite {
+  @apply border-l-4 border-purple-300 bg-purple-50;
+}
+
+.card-sa-sem-limite {
+  @apply border-l-4 border-purple-700 bg-purple-100 text-purple-900;
+}
+
+.card-inapta {
+  @apply border-l-4 border-red-300 bg-red-50 text-red-900;
+}
+
+.card-divida-tim {
+  @apply border-l-4 border-red-700 bg-red-100 text-red-900;
+}
+
+/* Estilos para o bot de conversação */
+.chat-container {
+  @apply bg-white rounded-tim shadow-tim-card overflow-hidden border border-gray-200;
+}
+
+.chat-header {
+  @apply bg-tim-blue text-white p-3 flex items-center;
+}
+
+.chat-messages {
+  @apply p-4 overflow-y-auto space-y-4;
+}
+
+.chat-message-bot {
+  @apply bg-tim-light-blue text-gray-800 p-3 rounded-tim max-w-[80%];
+}
+
+.chat-message-user {
+  @apply bg-tim-blue text-white p-3 rounded-tim max-w-[80%];
+}
+
+.chat-input {
+  @apply p-3 border-t border-gray-200;
+}
+
+/* Estilos para o filtro de pesquisa */
+.filter-container {
+  @apply bg-white rounded-tim shadow-tim-card p-4 mb-6;
+}
+
+.filter-input {
+  @apply w-full pl-10 pr-4 py-2 border rounded-tim focus:outline-none focus:ring-1 focus:ring-tim-blue;
+}
+
+.filter-button {
+  @apply flex items-center gap-1 px-3 py-2 rounded-tim;
+}
+
+.filter-button-primary {
+  @apply bg-tim-blue text-white hover:bg-tim-dark-blue;
+}
+
+.filter-button-secondary {
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-700;
+}
+
+/* Estilos para o dashboard */
+.dashboard-container {
+  @apply container mx-auto px-4 py-8;
+}
+
+.dashboard-header {
+  @apply flex flex-col md:flex-row justify-between items-start md:items-center mb-8;
+}
+
+.dashboard-title {
+  @apply text-2xl font-bold text-tim-blue;
+}
+
+.dashboard-subtitle {
+  @apply text-gray-600;
+}
+
+.dashboard-actions {
+  @apply flex mt-4 md:mt-0 space-x-3;
+}
+
+.dashboard-grid {
+  @apply grid grid-cols-1 lg:grid-cols-4 gap-6;
+}
+
+.dashboard-cards {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+/* Estilos para a página de login */
+.login-container {
+  @apply flex min-h-screen flex-col items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8;
+}
+
+.login-card {
+  @apply w-full max-w-md space-y-8 bg-white p-8 rounded-tim shadow-tim-card;
+}
+
+.login-logo {
+  @apply mx-auto h-12 w-auto;
+}
+
+.login-title {
+  @apply mt-6 text-center text-3xl font-bold tracking-tight text-tim-blue;
+}
+
+.login-subtitle {
+  @apply mt-2 text-center text-sm text-gray-600;
+}
+
+.login-form {
+  @apply mt-8 space-y-6;
+}
+
+.login-input-group {
+  @apply -space-y-px rounded-tim shadow-sm;
+}
+
+.login-input-first {
+  @apply relative block w-full rounded-t-tim border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-tim-blue;
+}
+
+.login-input-last {
+  @apply relative block w-full rounded-b-tim border-0 py-1.5 px-3 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:z-10 focus:ring-2 focus:ring-inset focus:ring-tim-blue;
+}
+
+.login-button {
+  @apply group relative flex w-full justify-center rounded-tim bg-tim-blue px-3 py-2 text-sm font-semibold text-white hover:bg-tim-dark-blue focus:outline-none focus:ring-2 focus:ring-tim-blue focus:ring-offset-2 disabled:opacity-50;
+}
+
+.login-error {
+  @apply rounded-tim bg-red-50 p-4 text-sm text-red-700;
+}

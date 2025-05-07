@@ -1,0 +1,23 @@
+{
+  "name": "painel-tim",
+  "version": "1.0.0",
+  "description": "Sistema de Painel TIM",
+  "main": "server.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {
+    "@hapi/boom": "^10.0.1",
+    "@whiskeysockets/baileys": "^6.17.16",
+    "express": "^4.18.2",
+    "node-cache": "^5.1.2",
+    "qrcode-terminal": "^0.12.0"
+  },
+  "devDependencies": {
+    "pino-pretty": "^13.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  }
+}
