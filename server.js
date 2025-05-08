@@ -1,10 +1,8 @@
 const express = require('express');
 const path = require('path');
 const fetch = require('node-fetch');
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('database.sqlite');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const mongoose = require('mongoose');
 
 app.use(express.json());
@@ -57,14 +55,13 @@ app.post('/api/consulta-cnpj', async (req, res) => {
 });
 
 // Conexão com o MongoDB Atlas
-mongoose.connect('mongodb+srv://valentina:OkRLW84XGOY68FWc@valentina.gdcrr.mongodb.net/valentina?retryWrites=true&w=majority&appName=valentina', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-    console.log('Conectado ao MongoDB Atlas');
-}).catch((err) => {
-    console.error('Erro ao conectar ao MongoDB Atlas:', err);
-});
+mongoose.connect('mongodb+srv://valentina:OkRLW84XGOY68FWc@valentina.gdcrr.mongodb.net/valentina?retryWrites=true&w=majority&appName=valentina')
+    .then(() => {
+        console.log('Conectado ao MongoDB Atlas');
+    })
+    .catch((err) => {
+        console.error('Erro ao conectar ao MongoDB Atlas:', err);
+    });
 
 // Model da ficha
 const fichaSchema = new mongoose.Schema({
